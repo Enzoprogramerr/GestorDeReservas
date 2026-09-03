@@ -1,0 +1,27 @@
+{
+  "name": "api-rest-crud",
+  "version": "1.0.0",
+  "description": "API REST CRUD para gestión de cabañas y reservas con Express y MySQL",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "express",
+    "mysql",
+    "api",
+    "rest",
+    "crud"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^4.18.2",
+    "mysql2": "^3.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

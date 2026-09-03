@@ -1,0 +1,11 @@
+¿Cómo probar el funcionamiento del proyecto?
+
+1- Verificar que el servidor levanta: npm run dev
+
+2- Verificar la conexión con MYSQL
+.
+3- Probar una consulta simple desde el Model.
+
+4- Probar consulta desde Postman.
+
+¿Cómo se selecciona la base de datos desde consulta?
