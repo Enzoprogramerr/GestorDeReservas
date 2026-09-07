@@ -17,3 +17,10 @@ La fecha de fin debe ser mayor que la fecha de inicio.
 Una reserva no puede solaparse con otra.
 El alojamiento debe existir.
 El cliente debe existir.
+
+# GestorDeReservas
+
+Aplicación CRUD para gestión de reservas de cabañas y clientes.
+-README.md: explica qué hace la app, cómo instalarla y cómo correrla.
+-.gitignore: excluí node_modules, .env, y otros archivos sensibles.
+-Screenshots: podés subir imágenes de la app en acción para que se vea atractiva.
