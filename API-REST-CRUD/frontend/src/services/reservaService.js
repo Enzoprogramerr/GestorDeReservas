@@ -49,12 +49,12 @@ export async function create(reserva) {
   return data;
 }
 
-/*export async function update(alojamiento) {
-  const { id } = alojamiento;
+export async function update(reserva) {
+  const { id } = reserva;
   const response = await fetch(`${url}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(alojamiento),
+    body: JSON.stringify(reserva),
   });
   const data = await response.json();
   if (!response.ok) {
@@ -62,7 +62,7 @@ export async function create(reserva) {
   }
   return data;
 }
-export async function remove(id) {
+/*export async function remove(id) {
   const response = await fetch(`${url}/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },

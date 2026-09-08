@@ -44,11 +44,11 @@ class AlojamientoService {
   static async put(id, data) {
     const { tipo, capacidad, precio } = data;
     if (!tipo) {
-      return "Debe ingresar el dato 'tipo'.";
+      throw new Error("Debe ingresar el dato 'tipo'.");
     } else if (!capacidad) {
-      return "Debe ingresar el dato 'capacidad'.";
+      throw new Error("Debe ingresar el dato 'capacidad'.");
     } else if (!precio) {
-      return "Debe ingresar el dato 'precio.'";
+      throw new Error("Debe ingresar el dato 'precio.'");
     }
     const result = await alojamientoModel.put(id, tipo, capacidad, precio);
     if (result === null) {

@@ -58,8 +58,8 @@ class ReservaModel {
   static async getById(id) {
     const query = `
     SELECT  * FROM reserva WHERE id=?`;
-    const [rows] = await db.query(query, [id]);
-    return rows;
+    const [result] = await db.query(query, [id]);
+    return result[0];
   }
 
   static async getByFecha(fechaInicio, fechaFin) {
@@ -78,24 +78,27 @@ class ReservaModel {
     return rows;
   }
 
-  static async update(nuevaReserva) {
+  static async update(id, nuevaReserva) {
     const query = `
     UPDATE reserva
     SET 
-    cliente_id = ?,
+    cliente_dni = ?,
     alojamiento_id = ?,
     fecha_inicio = ?,
     fecha_fin = ?
     WHERE id = ?;
     `;
-    const [resultado] = await db.query(query, [
-      nuevaReserva.clienteId,
+    const [result] = await db.query(query, [
+      nuevaReserva.dniCliente,
       nuevaReserva.alojamientoId,
-      nuevaReserva.nuevaFechaInicio,
-      nuevaReserva.nuevaFechaFin,
+      nuevaReserva.fechaInicio,
+      nuevaReserva.fechaFin,
       nuevaReserva.id,
     ]);
-    return resultado;
+    if (result.affectedRows === 0) {
+      return null;
+    }
+    return await this.getById(id);
   }
 
   static async remove(id) {

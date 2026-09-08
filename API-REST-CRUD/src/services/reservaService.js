@@ -51,9 +51,22 @@ class ReservaService {
     return result;
   }
 
-  static async update(reserva) {
-    const nuevaReserva = await reservaModel.update(reserva);
-    if (nuevaReserva.affectedRows === 0) {
+  static async update(id, reserva) {
+    const { alojamientoId, fechaInicio, fechaFin, dniCliente } = reserva;
+    if (!id) {
+      throw new Error("Debe ingresar el dato 'id'.");
+    } else if (!alojamientoId) {
+      throw new Error("Debe ingresar el dato 'alojamientoId'.");
+    } else if (!fechaInicio) {
+      throw new Error("Debe ingresar el dato 'fechaInicio'.");
+    } else if (!fechaFin) {
+      throw new Error("Debe ingresar el dato 'fechaFin'.");
+    } else if (!dniCliente) {
+      throw new Error("Debe ingresar el campo 'dniCliente'.");
+    }
+
+    const nuevaReserva = await reservaModel.update(id, reserva);
+    if (nuevaReserva === null) {
       throw new Error("Reserva no encontrada");
     }
     return nuevaReserva;

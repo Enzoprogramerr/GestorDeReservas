@@ -30,18 +30,9 @@ class ReservaController {
   static async update(req, res) {
     try {
       const { id } = req.params;
-      const { clienteId, alojamientoId, nuevaFechaInicio, nuevaFechaFin } =
-        req.body;
-      await reservaService.update({
-        id,
-        clienteId,
-        alojamientoId,
-        nuevaFechaInicio,
-        nuevaFechaFin,
-      });
-      res.status(200).json({
-        message: "Reserva actualizada",
-      });
+      const reserva = req.body;
+      const result = await reservaService.update(id, reserva);
+      res.status(200).json(result);
     } catch (error) {
       res.status(404).json({ error: error.message });
     }
