@@ -23,7 +23,9 @@ export function AlojGetByType({ onClose }) {
       <form onSubmit={handleSubmit}>
         <input type="text" name="tipo" placeholder="Tipo de alojamiento" />
         <button type="submit">Buscar</button>
-        <button onClick={onClose}>x</button>
+        <button type="button" onClick={onClose}>
+          x
+        </button>
       </form>
       {error && <p>{error}</p>}
       {alojamiento && (

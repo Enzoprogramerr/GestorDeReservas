@@ -1,22 +1,22 @@
 const db = require("../database/db"); //importo la conexión a MySQL. Permite ejecutar consultas como db.query .
 
 class ReservaModel {
-  static async create(reserva) {
+  static async create(data) {
     const query = `
         INSERT INTO reserva
-        (cliente_id, alojamiento_id, fecha_inicio, fecha_fin)
+        (alojamiento_id, fecha_inicio, fecha_fin, cliente_dni)
         VALUES (?,?,?,?)`;
     // Se envían los valores al SQL.
     const [result] = await db.query(query, [
-      reserva.clienteId,
-      reserva.alojamientoId,
-      reserva.nuevaFechaInicio,
-      reserva.nuevaFechaFin,
+      data.alojamientoId,
+      data.fechaInicio,
+      data.fechaFin,
+      data.dniCliente,
     ]);
 
     return {
       id: result.insertId, //id generado por sql.
-      ...reserva, // Es "spread operator" significa: copiar todas las propiedads de reserva .
+      ...data, // Es "spread operator" significa: copiar todas las propiedads de reserva .
     };
   }
 
@@ -27,26 +27,27 @@ class ReservaModel {
 
     let params = [];
 
-    if (filtros.clienteId) {
-      query += ` AND cliente_id = ?`;
-      params.push(filtros.clienteId);
+    if (filtros.dniNumber) {
+      query += ` AND cliente_dni = ?`;
+      params.push(filtros.dniNumber);
     }
-    if (filtros.alojamientoId) {
+    if (filtros.idAlojNumber) {
       query += ` AND alojamiento_id = ?`;
-      params.push(filtros.alojamientoId);
+      params.push(filtros.idAlojNumber);
     }
-    if (filtros.mes && filtros.anio) {
-      const inicioMes = new Date(filtros.anio, filtros.mes - 1, 1);
-      const inicioMesSiguiente = new Date(filtros.anio, filtros.mes, 1);
+    if (filtros.mesNumber && filtros.anioNumber) {
+      const inicioMes = new Date(filtros.anioNumber, filtros.mesNumber - 1, 1);
+      const inicioMesSiguiente = new Date(
+        filtros.anioNumber,
+        filtros.mesNumber,
+        1,
+      );
       const formatDate = (date) =>
         date.toISOString().slice(0, 19).replace("T", " ");
-      console.log(formatDate(inicioMes));
-      console.log(formatDate(inicioMesSiguiente));
       query += ` AND NOT (
                 fecha_fin < ?
                 OR fecha_inicio >= ?
                 )`;
-      console.log(query);
       params.push(formatDate(inicioMes));
       params.push(formatDate(inicioMesSiguiente));
     }
@@ -61,9 +62,9 @@ class ReservaModel {
     return rows;
   }
 
-  static async getByFecha(fecha) {
+  static async getByFecha(fechaInicio, fechaFin) {
     const query = `SELECT * FROM reserva WHERE fecha_inicio <= ? AND fecha_fin >= ?`;
-    const [result] = await db.query(query, [fecha, fecha]);
+    const [result] = await db.query(query, [fechaFin, fechaInicio]);
 
     return {
       result,

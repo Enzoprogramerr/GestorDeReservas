@@ -39,7 +39,9 @@ export function ClientCreate({ onClose }) {
         <input type="text" name="apellido" placeholder="Apellido" />
         <input type="number" name="telefono" placeholder="Telefono" />
         <button type="submit">Guardar</button>
-        <button onClick={onClose}>x</button>
+        <button type="button" onClick={onClose}>
+          x
+        </button>
       </form>
 
       {clienteCreado && (

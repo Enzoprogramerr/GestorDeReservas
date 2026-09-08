@@ -31,7 +31,9 @@ export function ClientPut({ onClose }) {
         <input type="text" name="apellido" placeholder="Apellido" />
         <input type="number" name="telefono" placeholder="Teléfono" />
         <button type="submit">Guardar</button>
-        <button onClick={onClose}>x</button>
+        <button type="button" onClick={onClose}>
+          x
+        </button>
       </form>
       {error && <p>{error}</p>}
       {clienteEditado && (

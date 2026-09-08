@@ -2,42 +2,51 @@ const reservaModel = require("../models/reservaModel");
 
 class ReservaService {
   static async create(data) {
-    const { clienteId, alojamientoId, nuevaFechaInicio, nuevaFechaFin } = data;
+    const { fechaInicio, fechaFin } = data;
 
-    if (nuevaFechaInicio >= nuevaFechaFin) {
+    if (fechaInicio >= fechaFin) {
       throw new Error("La fecha de inicio debe ser menor a la fecha fin");
     }
 
-    const conflictos = await reservaModel.getByFecha(
-      alojamientoId,
-      nuevaFechaInicio,
-      nuevaFechaFin,
-    );
+    const conflictos = await reservaModel.getByFecha(fechaInicio, fechaFin);
 
     if (conflictos.length > 0) {
       throw new Error("Ya existe una reserva en esas fechas");
     }
 
-    const reserva = {
-      clienteId,
-      alojamientoId,
-      nuevaFechaInicio,
-      nuevaFechaFin,
-    };
-
-    return await reservaModel.create(reserva);
+    return await reservaModel.create(data);
   }
 
   static async search(filtros = {}) {
-    const { clienteId, alojamientoId, mes, anio } = filtros;
+    if (Object.keys(filtros).length === 0) {
+      const result = await reservaModel.search();
+      return result;
+    }
+
+    const { cliente_dni, alojamiento_id, mes, anio } = filtros;
+    if (
+      cliente_dni === "" ||
+      alojamiento_id === "" ||
+      mes === "" ||
+      anio === ""
+    ) {
+      throw new Error("Debe ingresar un valor en el campo.");
+    }
+    const dniNumber = Number(cliente_dni);
+    const idAlojNumber = Number(alojamiento_id);
+    const mesNumber = Number(mes);
+    const anioNumber = Number(anio);
+
     const result = await reservaModel.search({
-      clienteId,
-      alojamientoId,
-      mes,
-      anio,
+      dniNumber,
+      idAlojNumber,
+      mesNumber,
+      anioNumber,
     });
     if (result.length == 0) {
-      return "No existe registro con los parametros de búsqueda ingresados.";
+      throw new Error(
+        "No existe registro con los parametros de búsqueda ingresados.",
+      );
     }
     return result;
   }

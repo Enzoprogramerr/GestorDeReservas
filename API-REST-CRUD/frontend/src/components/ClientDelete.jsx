@@ -24,7 +24,9 @@ export function ClientDelete({ onClose }) {
       <form onSubmit={handleSubmit}>
         <input type="number" name="id" placeholder="Ingrese Dni" />
         <button type="submit">Eliminar cliente</button>
-        <button onClick={onClose}>x</button>
+        <button type="button" onClick={onClose}>
+          x
+        </button>
       </form>
       {action && (
         <ResponseCard titulo={action} onClose={onClose}></ResponseCard>

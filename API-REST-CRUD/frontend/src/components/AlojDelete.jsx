@@ -24,7 +24,9 @@ export function AlojDelete({ onClose }) {
       <form onSubmit={handleSubmit}>
         <input type="number" name="id" placeholder="Id de alojamiento" />
         <button type="submit">Eliminar</button>
-        <button onClick={onClose}>x</button>
+        <button type="button" onClick={onClose}>
+          x
+        </button>
       </form>
       {error && <p>{error}</p>}
       {alojamiento && (

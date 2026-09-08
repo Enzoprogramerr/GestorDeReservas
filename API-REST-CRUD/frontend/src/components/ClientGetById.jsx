@@ -26,7 +26,9 @@ export function ClientGetById({ onClose }) {
       <form onSubmit={handleSubmit}>
         <input type="text" name="id" placeholder="Ingrese dni" />
         <button type="submit">Buscar</button>
-        <button onClick={onClose}>x</button>
+        <button type="button" onClick={onClose}>
+          x
+        </button>
       </form>
 
       {error && <p>{error}</p>}

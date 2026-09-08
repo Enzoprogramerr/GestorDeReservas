@@ -33,7 +33,9 @@ export function AlojUpdate({ onClose }) {
         <input type="text" name="capacidad" placeholder="capacidad" />
         <input type="number" name="precio" placeholder="precio" />
         <button type="submit">Guardar</button>
-        <button onClick={onClose}>x</button>
+        <button type="button" onClick={onClose}>
+          x
+        </button>
       </form>
       {error && <p>{error}</p>}
       {alojamiento && (
