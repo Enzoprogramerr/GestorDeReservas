@@ -1,24 +1,14 @@
 import { getAll, getByDni } from "../services/reservaService";
 import { useState } from "react";
-import { ResponseCard } from "./ResponseCard";
-import { FormaterDate } from "../utils/formaterDate";
+import { ResponseCardReserva } from "./ResponseCardReservas";
 import { getByAlojamiento } from "../services/reservaService";
 import { getByMesAño } from "../services/reservaService";
+import { ReservaList } from "./ReservaTable";
 
 export function MostrarReserva({ onClose }) {
   const [error, setError] = useState("");
   const [reserva, setReserva] = useState(null);
-  /*useEffect(() => {
-     async function mostrarReserva() {
-      try {
-        const response = await getAll();
-        setReserva(response);
-      } catch (error) {
-        setError(error.message);
-      }
-    }
-    mostrarReserva();
-  }, []); */
+  const [tipoBusqueda, setTipoBusqueda] = useState(null);
 
   async function get() {
     try {
@@ -77,57 +67,60 @@ export function MostrarReserva({ onClose }) {
 
   return (
     <>
-      <button onClick={get}>Buscar todas las reservas</button>
-      <form onSubmit={getByClient}>
-        <input type="number" name="idCliente" placeholder="Dni del cliente" />
-        <button type="submit">Buscar</button>
-      </form>
+      <h2>¿Cómo queres buscar?</h2>
 
-      <form onSubmit={getByAloj}>
-        <input type="number" name="idAloj" placeholder="Id del alojamiento" />
-        <button type="submit">Buscar</button>
-      </form>
+      <div className="busqueda-reserva">
+        <button onClick={get}>Buscar todas las reservas</button>
 
-      <form onSubmit={getByMesandAnio}>
-        <input type="number" name="mes" placeholder="Mes" />
-        <input type="number" name="año" placeholder="Año" />
-        <button type="submit">Buscar</button>
-      </form>
+        <button onClick={() => setTipoBusqueda("cliente")}>
+          Buscar por cliente
+        </button>
+        {tipoBusqueda === "cliente" && (
+          <form onSubmit={getByClient}>
+            <input
+              type="number"
+              name="idCliente"
+              placeholder="Dni del cliente"
+            />
+            <button type="submit">Buscar</button>
+          </form>
+        )}
+
+        <button onClick={() => setTipoBusqueda("alojamiento")}>
+          Buscar por alojamiento
+        </button>
+        {tipoBusqueda === "alojamiento" && (
+          <form onSubmit={getByAloj}>
+            <input
+              type="number"
+              name="idAloj"
+              placeholder="Id del alojamiento"
+            />
+            <button type="submit">Buscar</button>
+          </form>
+        )}
+
+        <button onClick={() => setTipoBusqueda("mes")}>Buscar por mes</button>
+        {tipoBusqueda === "mes" && (
+          <form onSubmit={getByMesandAnio}>
+            <input type="number" name="mes" placeholder="Mes" />
+            <input type="number" name="año" placeholder="Año" />
+            <button type="submit">Buscar</button>
+          </form>
+        )}
+      </div>
+
       {error && <p>{error}</p>}
       {reserva && (
-        <ResponseCard titulo={"Lista de reservas"} onClose={onClose}>
-          <>
-            <ul className="alojamiento-list">
-              {reserva.map((a) => (
-                <li className="alojamiento-item" key={a.id}>
-                  <p>
-                    <strong>Id reserva</strong>
-                    <span>{a.id}</span>
-                  </p>
+        <>
+          <div className="reserva-mobile">
+            <ResponseCardReserva reservas={reserva} onClose={onClose} />
+          </div>
 
-                  <p>
-                    <strong>Alojamiento Id</strong>
-                    <span>{a.alojamiento_id}</span>
-                  </p>
-
-                  <p>
-                    <strong>Fecha de inicio</strong>
-                    <span>{FormaterDate(a.fecha_inicio)}</span>
-                  </p>
-
-                  <p>
-                    <strong>Fecha de fin</strong>
-                    <span>{FormaterDate(a.fecha_fin)}</span>
-                  </p>
-                  <p>
-                    <strong>Dni cliente</strong>
-                    <span>{a.cliente_dni}</span>
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </>
-        </ResponseCard>
+          <div className="reserva-desktop">
+            <ReservaList reservas={reserva} onClose={onClose} />
+          </div>
+        </>
       )}
     </>
   );

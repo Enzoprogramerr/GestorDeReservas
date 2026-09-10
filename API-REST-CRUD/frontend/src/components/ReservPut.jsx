@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { update } from "../services/reservaService";
-import { ResponseCard } from "./ResponseCard";
-import { FormaterDate } from "../utils/formaterDate";
-import { ResponseCardReserva } from "./ResponseCardReserva";
+import { ResponseCardReserva } from "./ResponseCardReservas";
 
 export function ReservePut({ onClose }) {
   const [reserva, setReserva] = useState(null);

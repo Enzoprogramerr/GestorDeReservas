@@ -1,3 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #0f4ed9ab;
+
+  --secondary-color: #475569;
+  --accent-color: #0d9488;
+
+  --background-color: #080d21;
+  --background-color-secundary: #343a51;
+  --surface-color: #343a51;
+
+  --text-color: white;
+  --text-muted: #64748b;
+
+  --border-color: #e2e8f0;
+
+  --success-color: #16a34a;
+  --error-color: #dc2626;
+  --warning-color: #d97706;
+}
+
+* {
+  box-sizing: border-box; /*Cuando yo indique un ancho o alto, quiero que ese tamaño incluya el padding y el borde. */
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto";
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+button,
+select,
+textarea {
+  font-family: "Roboto";
+  color: var(--text-color);
+}
+
+button {
+  background-color: var(--background-color);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #666;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.close-bt {
+  height: 30px;
+  width: 30px;
+}
+.close-bt:hover {
+  background-color: #c7d4e0;
+  color: #222;
+  border-radius: 13px;
+}
+.header {
+  width: 100%;
+  padding: 1.5rem 1rem;
+  color: var(--text-color);
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #080d21;
+}
+.header h1 {
+  font-weight: 400;
+}
+.Logo-sistema {
+  height: 30px;
+  width: 30px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.navbar {
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-color-secundary);
+}
+
+.navbar-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.navbar-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+.navbar-links a:hover {
+  transform: scale(1.15);
+}
+.navbar a.active {
+  color: var(--primary-hover);
+  font-weight: 1000;
+}
+
+.contenedor-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+}
+.busqueda-reserva {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 2rem;
+}
+
+.reserva-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.reserva-card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.reserva-card-header {
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+}
+
+.reserva-card-header h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.reserva-card-body p {
+  margin: 0.6rem 0;
+  color: var(--text-color);
+  font-weight: 300;
+}
+
+.reserva-card-body strong {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.reserva-mobile {
+  display: block;
+  margin: 25px auto;
+  padding: 24px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  position: relative;
+  margin: 25px;
+  border: 1px solid #d8eadd;
+}
+
+.reserva-desktop {
+  display: none;
+}
+
+/* :root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+
+  --secondary-color: #475569;
+  --accent-color: #0d9488;
+
+  --background-color: #f8fafc;
+  --surface-color: #ffffff;
+
+  --text-color: #1e293b;
+  --text-muted: #64748b;
+
+  --border-color: #e2e8f0;
+
+  --success-color: #16a34a;
+  --error-color: #dc2626;
+  --warning-color: #d97706;
+}
+
+body {
+  font-family: "Roboto";
+}
+button {
+  font-family: Cambria;
+}
 .navbar {
   width: min(100% - 32px, 900px);
   margin: 0 auto 35px;
@@ -33,10 +252,9 @@
   background-color: #f1f5f9;
 }
 
-.boton-contador {
-  background-color: rgb(19, 53, 53);
-  color: white;
-  font-family: cursive;
+.contenedor-item {
+  display: flex;
+  flex-direction: column;
 }
 
 button {
@@ -124,15 +342,15 @@ ul {
   border-radius: 13px;
 }
 #response-data {
-  list-style: none; /* quita viñetas */
+  list-style: none; 
   padding: 0;
   margin: 0;
 }
 
 #response-data .cliente-info {
-  display: flex; /* organiza contenido en fila */
-  align-items: center; /* alinea verticalmente */
-  justify-content: flex-start; /* todos empiezan en la misma línea */
+  display: flex;  organiza contenido en fila 
+  align-items: center;  alinea verticalmente 
+  justify-content: flex-start;  todos empiezan en la misma línea 
   padding: 12px 16px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
@@ -199,4 +417,38 @@ ul {
   font-size: 1rem;
   font-weight: 500;
   color: #1e293b;
+}
+.reserva-table {
+  background-color: var(--surface-color);
+}
+
+.reserva-table thead {
+  background-color: var(--primary-color);
+}
+
+.reserva-table th {
+  color: var(--surface-color);
+}
+
+.reserva-table td {
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.reserva-table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+ */
+@media (min-width: 768px) {
+  .navbar-links {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .reserva-mobile {
+    display: none;
+  }
+
+  .reserva-desktop {
+    display: block;
+  }
 }

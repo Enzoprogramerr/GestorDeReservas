@@ -7,6 +7,14 @@ import "./App.css";
 function App() {
   return (
     <>
+      <header className="header">
+        <h1>Gestor de Reservas</h1>
+        <img
+          className="Logo-sistema"
+          src="../public/logo.png"
+          alt="Logo del sistema"
+        />
+      </header>
       <nav className="navbar">
         <div className="navbar-links">
           <NavLink to="/cliente">Clientes</NavLink>

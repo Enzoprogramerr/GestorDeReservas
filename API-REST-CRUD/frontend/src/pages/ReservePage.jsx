@@ -3,6 +3,7 @@ import { MostrarReserva } from "../components/ReservGet";
 import { useState } from "react";
 import { ReservePut } from "../components/ReservPut";
 import { ReserveDelete } from "../components/ReservDelete";
+import { SpecularButton } from "../components/SpecularButton";
 
 export function ReservePage() {
   const [mostrarReserva, setMostrarReserva] = useState(false);
@@ -12,65 +13,80 @@ export function ReservePage() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          setMostrarReserva(true);
-        }}
-      >
-        Mostrar reservas
-      </button>
-      {mostrarReserva && (
-        <MostrarReserva
-          onClose={() => {
-            setMostrarReserva(false);
+      <div className="contenedor-item">
+        <SpecularButton
+          tint="#d4e0f2"
+          lineColor="#00C3FF"
+          size="md"
+          speed={0.4}
+          onClick={() => {
+            setMostrarReserva(true);
           }}
-        />
-      )}
-
-      <button
-        onClick={() => {
-          setCrearReserva(true);
-        }}
-      >
-        Crear nueva reserva
-      </button>
-      {crearReserva && (
-        <ReservaCreate
-          onClose={() => {
-            setCrearReserva(false);
+        >
+          Mostrar reservas
+        </SpecularButton>
+        {mostrarReserva && (
+          <MostrarReserva
+            onClose={() => {
+              setMostrarReserva(false);
+            }}
+          />
+        )}
+        <SpecularButton
+          tint="#d4e0f2"
+          lineColor="#00C3FF"
+          size="md"
+          speed={0.4}
+          onClick={() => {
+            setCrearReserva(true);
           }}
-        />
-      )}
-
-      <button
-        onClick={() => {
-          setUpdateReserva(true);
-        }}
-      >
-        Actualizar una Reserva
-      </button>
-      {updateReserva && (
-        <ReservePut
-          onClose={() => {
-            setUpdateReserva(false);
+        >
+          Crear nueva reserva
+        </SpecularButton>
+        {crearReserva && (
+          <ReservaCreate
+            onClose={() => {
+              setCrearReserva(false);
+            }}
+          />
+        )}
+        <SpecularButton
+          tint="#d4e0f2"
+          lineColor="#00C3FF"
+          size="md"
+          speed={0.4}
+          onClick={() => {
+            setUpdateReserva(true);
           }}
-        ></ReservePut>
-      )}
-
-      <button
-        onClick={() => {
-          setDeleteReserva(true);
-        }}
-      >
-        Eliminar Reserva
-      </button>
-      {deleteReserva && (
-        <ReserveDelete
-          onClose={() => {
-            setDeleteReserva(false);
+        >
+          Actualizar una reserva
+        </SpecularButton>
+        {updateReserva && (
+          <ReservePut
+            onClose={() => {
+              setUpdateReserva(false);
+            }}
+          ></ReservePut>
+        )}
+        <SpecularButton
+          tint="#000000"
+          lineColor="#00C3FF"
+          size="md"
+          speed={0.4}
+          onClick={() => {
+            setDeleteReserva(true);
           }}
-        />
-      )}
+        >
+          Eliminar reserva
+        </SpecularButton>
+        {deleteReserva && (
+          <ReserveDelete
+            onClose={() => {
+              setDeleteReserva(false);
+            }}
+          />
+        )}
+      </div>
     </>
   );
 }
