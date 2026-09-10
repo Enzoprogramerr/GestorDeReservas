@@ -11,6 +11,7 @@ export function AlojGet({ onClose }) {
       try {
         const response = await getAll();
         setAlojamientos(response);
+        setError("");
       } catch (error) {
         setError(error.message);
       }

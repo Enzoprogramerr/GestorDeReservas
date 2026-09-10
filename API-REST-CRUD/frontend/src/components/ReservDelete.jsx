@@ -13,6 +13,7 @@ export function ReserveDelete({ onClose }) {
     try {
       const response = await remove(id);
       setReserva(response);
+      setError("");
     } catch (error) {
       setError(error.message);
     }

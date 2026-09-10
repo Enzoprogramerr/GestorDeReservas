@@ -24,6 +24,7 @@ export function MostrarReserva({ onClose }) {
     try {
       const response = await getAll();
       setReserva(response);
+      setError("");
     } catch (error) {
       setReserva(null);
       setError(error.message);

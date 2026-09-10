@@ -21,7 +21,7 @@ export function ReservePut({ onClose }) {
     try {
       const response = await update(nuevaReserva);
       setReserva(response);
-      console.log(response);
+      setError("");
     } catch (error) {
       setError(error.message);
     }
