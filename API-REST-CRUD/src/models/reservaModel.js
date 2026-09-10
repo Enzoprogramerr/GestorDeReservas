@@ -1,6 +1,37 @@
 const db = require("../database/db"); //importo la conexión a MySQL. Permite ejecutar consultas como db.query .
 
 class ReservaModel {
+  static async existeConflicto(
+    alojamientoId,
+    fechaInicio,
+    fechaFin,
+    id = null,
+  ) {
+    let query = `
+    SELECT *
+    FROM reserva
+    WHERE alojamiento_id = ?
+    AND NOT (
+      fecha_fin <= ?
+      OR fecha_inicio >= ?
+    )
+  `;
+
+    const params = [alojamientoId, fechaInicio, fechaFin];
+
+    if (id !== null) {
+      query += ` AND id != ?`;
+      params.push(id);
+    }
+    console.log("alojamientoId:", alojamientoId);
+    console.log("fechaInicio:", fechaInicio);
+    console.log("fechaFin:", fechaFin);
+    console.log("params:", params);
+    const [rows] = await db.query(query, params);
+
+    return rows.length > 0;
+  }
+
   static async create(data) {
     const query = `
         INSERT INTO reserva

@@ -2,11 +2,13 @@ import { ReservaCreate } from "../components/ReservCreate";
 import { MostrarReserva } from "../components/ReservGet";
 import { useState } from "react";
 import { ReservePut } from "../components/ReservPut";
+import { ReserveDelete } from "../components/ReservDelete";
 
 export function ReservePage() {
   const [mostrarReserva, setMostrarReserva] = useState(false);
   const [crearReserva, setCrearReserva] = useState(false);
   const [updateReserva, setUpdateReserva] = useState(false);
+  const [deleteReserva, setDeleteReserva] = useState(false);
 
   return (
     <>
@@ -55,20 +57,20 @@ export function ReservePage() {
         ></ReservePut>
       )}
 
-      {/*   <button
-                onClick={() => {
-                  setDeleteAlojamiento(true);
-                }}
-              >
-                Eliminar alojamiento
-              </button>
-              {deleteAlojamiento && (
-                <AlojDelete
-                  onClose={() => {
-                    setDeleteAlojamiento(false);
-                  }}
-                />
-              )} */}
+      <button
+        onClick={() => {
+          setDeleteReserva(true);
+        }}
+      >
+        Eliminar Reserva
+      </button>
+      {deleteReserva && (
+        <ReserveDelete
+          onClose={() => {
+            setDeleteReserva(false);
+          }}
+        />
+      )}
     </>
   );
 }

@@ -2,19 +2,52 @@ const reservaModel = require("../models/reservaModel");
 
 class ReservaService {
   static async create(data) {
-    const { fechaInicio, fechaFin } = data;
+    const { alojamientoId, fechaInicio, fechaFin } = data;
 
     if (fechaInicio >= fechaFin) {
       throw new Error("La fecha de inicio debe ser menor a la fecha fin");
     }
 
-    const conflictos = await reservaModel.getByFecha(fechaInicio, fechaFin);
-
-    if (conflictos.length > 0) {
+    const conflicto = await reservaModel.existeConflicto(
+      alojamientoId,
+      fechaInicio,
+      fechaFin,
+    );
+    if (conflicto) {
       throw new Error("Ya existe una reserva en esas fechas");
     }
-
-    return await reservaModel.create(data);
+    try {
+      return await reservaModel.create(data);
+    } catch (error) {
+      if (error.code === "ER_NO_REFERENCED_ROW_2") {
+        if (
+          error.message ===
+          "Cannot add or update a child row: a foreign key constraint fails (`appcrud`.`reserva`, CONSTRAINT `reserva_fk_cliente` FOREIGN KEY (`cliente_dni`) REFERENCES `cliente` (`dni`))"
+        ) {
+          throw new Error("Dni cliente no registrado.");
+        }
+        throw new Error("No se encuentra registrado ese alojamiento.");
+      }
+      if (error.code === "ER_WARN_DATA_OUT_OF_RANGE") {
+        if (
+          error.message ===
+          "Out of range value for column 'alojamiento_id' at row 1"
+        ) {
+          throw new Error(
+            "El campo alojamiento id supera los caracteres permitidos.",
+          );
+        }
+        if (
+          error.message ===
+          "Out of range value for column 'cliente_dni' at row 1"
+        ) {
+          throw new Error(
+            "El dni cliente ingresado supera los caracteres permitidos.",
+          );
+        }
+        throw error;
+      }
+    }
   }
 
   static async search(filtros = {}) {
@@ -65,11 +98,51 @@ class ReservaService {
       throw new Error("Debe ingresar el campo 'dniCliente'.");
     }
 
-    const nuevaReserva = await reservaModel.update(id, reserva);
-    if (nuevaReserva === null) {
-      throw new Error("Reserva no encontrada");
+    try {
+      const conflicto = await reservaModel.existeConflicto(
+        alojamientoId,
+        fechaInicio,
+        fechaFin,
+        id,
+      );
+      if (conflicto) {
+        throw new Error("Ya existe una reserva en las fechas indicadas.");
+      }
+
+      const nuevaReserva = await reservaModel.update(id, reserva);
+      if (nuevaReserva === null) {
+        throw new Error("El Id de la reserva no está registrada.");
+      }
+      return nuevaReserva;
+    } catch (error) {
+      if (error.code === "ER_NO_REFERENCED_ROW_2") {
+        if (
+          error.message ===
+          "Cannot add or update a child row: a foreign key constraint fails (`appcrud`.`reserva`, CONSTRAINT `reserva_fk_cliente` FOREIGN KEY (`cliente_dni`) REFERENCES `cliente` (`dni`))"
+        ) {
+          throw new Error("Dni cliente no registrado.");
+        }
+        throw new Error("No se encuentra registrado ese alojamiento.");
+      }
+      if (error.code === "ER_WARN_DATA_OUT_OF_RANGE") {
+        if (
+          error.message ===
+          "Out of range value for column 'alojamiento_id' at row 1"
+        ) {
+          throw new Error(
+            "El campo alojamiento id supera los caracteres permitidos.",
+          );
+        }
+        if (
+          error.message ===
+          "Out of range value for column 'cliente_dni' at row 1"
+        )
+          throw new Error(
+            "El dni cliente ingresado supera los caracteres permitidos.",
+          );
+      }
+      throw error;
     }
-    return nuevaReserva;
   }
 
   static async getById(id) {
@@ -83,9 +156,10 @@ class ReservaService {
   static async remove(id) {
     const result = await reservaModel.remove(id);
     if (result.affectedRows === 0) {
-      throw new Error("No existe un reserva con ese id");
+      throw new Error("No existe una reserva con ese id");
     }
-    return "Reserva eliminado correctamente.";
+
+    return "Reserva eliminada correctamente.";
   }
 }
 

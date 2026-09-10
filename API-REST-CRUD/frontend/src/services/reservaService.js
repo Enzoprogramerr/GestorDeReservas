@@ -62,7 +62,7 @@ export async function update(reserva) {
   }
   return data;
 }
-/*export async function remove(id) {
+export async function remove(id) {
   const response = await fetch(`${url}/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -73,4 +73,3 @@ export async function update(reserva) {
   }
   return data;
 }
- */
