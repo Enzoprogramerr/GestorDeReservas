@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getByIdClientes } from "../services/clienteServices";
 import { ResponseCard } from "./ResponseCard";
+import { ResponseCardClient } from "./ResponseCardClient";
 
 export function ClientGetById({ onClose }) {
   const [cliente, setCliente] = useState(null);
@@ -33,28 +34,11 @@ export function ClientGetById({ onClose }) {
 
       {error && <p>{error}</p>}
       {cliente && (
-        <ResponseCard titulo="Cliente encontrado con éxito" onClose={onClose}>
-          <div className="client-response">
-            <p>
-              <strong>Dni:</strong>
-              {cliente.dni}
-            </p>
-
-            <p>
-              <strong>Nombre:</strong>
-              {cliente.nombre}
-            </p>
-
-            <p>
-              <strong>Apellido:</strong>
-              {cliente.apellido}
-            </p>
-            <p>
-              <strong>Telefono:</strong>
-              {cliente.telefono}
-            </p>
-          </div>
-        </ResponseCard>
+        <ResponseCardClient
+          cliente={cliente}
+          titulo={"Cliente encontrado con éxito"}
+          onClose={onClose}
+        />
       )}
     </>
   );

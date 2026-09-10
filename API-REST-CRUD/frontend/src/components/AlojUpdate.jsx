@@ -39,29 +39,11 @@ export function AlojUpdate({ onClose }) {
       </form>
       {error && <p>{error}</p>}
       {alojamiento && (
-        <ResponseCard titulo={"Alojamiento actualizado."} onClose={onClose}>
-          <div className="alojamiento-item">
-            <p>
-              <strong>ID</strong>
-              <span>{alojamiento.id}</span>
-            </p>
-
-            <p>
-              <strong>Tipo</strong>
-              <span>{alojamiento.tipo}</span>
-            </p>
-
-            <p>
-              <strong>Capacidad</strong>
-              <span>{alojamiento.capacidad} personas</span>
-            </p>
-
-            <p>
-              <strong>Precio</strong>
-              <span>${alojamiento.precio}</span>
-            </p>
-          </div>
-        </ResponseCard>
+        <ResponseCardAlojamiento
+          alojamiento={alojamiento}
+          titulo={"Alojamiento actualizado con éxito"}
+          onClose={onClose}
+        />
       )}
     </>
   );

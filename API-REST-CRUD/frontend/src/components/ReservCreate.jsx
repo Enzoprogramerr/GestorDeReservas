@@ -30,10 +30,26 @@ export function ReservaCreate({ onClose }) {
           type="number"
           name="alojamientoId"
           placeholder="Id alojamiento"
+          required
         />
-        <input type="date" name="fechaInicio" placeholder="Fecha de inicio" />
-        <input type="date" name="fechaFin" placeholder="Fecha de fin" />
-        <input type="number" name="dniCliente" placeholder="Dni del cliente" />
+        <input
+          type="date"
+          name="fechaInicio"
+          placeholder="Fecha de inicio"
+          required
+        />
+        <input
+          type="date"
+          name="fechaFin"
+          placeholder="Fecha de fin"
+          required
+        />
+        <input
+          type="number"
+          name="dniCliente"
+          placeholder="Dni del cliente"
+          required
+        />
         <button type="submit">Crear</button>
         <button type="button" onClick={onClose}>
           x

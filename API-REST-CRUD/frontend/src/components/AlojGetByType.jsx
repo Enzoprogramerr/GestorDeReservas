@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getByType } from "../services/alojamientoServices";
 import { ResponseCard } from "./ResponseCard";
+import { ResponseCardAlojamiento } from "./ResponseCardAloj";
 
 export function AlojGetByType({ onClose }) {
   const [alojamiento, setAlojamiento] = useState(null);
@@ -29,29 +30,11 @@ export function AlojGetByType({ onClose }) {
       </form>
       {error && <p>{error}</p>}
       {alojamiento && (
-        <ResponseCard titulo={"Alojamiento encontrado."} onClose={onClose}>
-          <div className="alojamiento-item">
-            <p>
-              <strong>ID</strong>
-              <span>{alojamiento.id}</span>
-            </p>
-
-            <p>
-              <strong>Tipo</strong>
-              <span>{alojamiento.tipo}</span>
-            </p>
-
-            <p>
-              <strong>Capacidad</strong>
-              <span>{alojamiento.capacidad} personas</span>
-            </p>
-
-            <p>
-              <strong>Precio</strong>
-              <span>${alojamiento.precio}</span>
-            </p>
-          </div>
-        </ResponseCard>
+        <ResponseCardAlojamiento
+          alojamiento={alojamiento}
+          titulo={"Alojamiento encontrado con éxito"}
+          onClose={onClose}
+        />
       )}
     </>
   );

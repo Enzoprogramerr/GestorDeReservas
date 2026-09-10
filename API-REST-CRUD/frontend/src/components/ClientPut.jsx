@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateClientes } from "../services/clienteServices";
 import { ResponseCard } from "./ResponseCard";
+import { ResponseCardClient } from "./ResponseCardClient";
 
 export function ClientPut({ onClose }) {
   const [clienteEditado, setClienteEditado] = useState(null);
@@ -37,21 +38,11 @@ export function ClientPut({ onClose }) {
       </form>
       {error && <p>{error}</p>}
       {clienteEditado && (
-        <ResponseCard titulo="Cliente editado con éxito" onClose={onClose}>
-          <div className="client-response">
-            <p>
-              <strong>Dni:</strong> {clienteEditado.dni}
-            </p>
-
-            <p>
-              <strong>Nombre:</strong> {clienteEditado.nombre}
-            </p>
-
-            <p>
-              <strong>Apellido:</strong> {clienteEditado.apellido}
-            </p>
-          </div>
-        </ResponseCard>
+        <ResponseCardClient
+          cliente={clienteEditado}
+          titulo={"Cliente actualizado con éxito"}
+          onClose={onClose}
+        />
       )}
     </>
   );

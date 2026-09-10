@@ -2,6 +2,7 @@ import { useState } from "react";
 import { update } from "../services/reservaService";
 import { ResponseCard } from "./ResponseCard";
 import { FormaterDate } from "../utils/formaterDate";
+import { ResponseCardReserva } from "./ResponseCardReserva";
 
 export function ReservePut({ onClose }) {
   const [reserva, setReserva] = useState(null);
@@ -66,36 +67,11 @@ export function ReservePut({ onClose }) {
       </form>
       {error && <p>{error}</p>}
       {reserva && (
-        <ResponseCard
-          titulo={"Reserva actualizada con éxito."}
+        <ResponseCardReserva
+          reserva={reserva}
+          titulo={"Reserva actualizada"}
           onClose={onClose}
-        >
-          <div className="alojamiento-item">
-            <p>
-              <strong>Id</strong>
-              <span>{reserva.id}</span>
-            </p>
-
-            <p>
-              <strong>Id alojamiento</strong>
-              <span>{reserva.alojamiento_id}</span>
-            </p>
-
-            <p>
-              <strong>Fecha de inicio</strong>
-              <span>{FormaterDate(reserva.fecha_inicio)}</span>
-            </p>
-
-            <p>
-              <strong>Fecha fin</strong>
-              <span>{FormaterDate(reserva.fecha_fin)}</span>
-            </p>
-            <p>
-              <strong>Dni cliente </strong>
-              <span>{reserva.cliente_dni}</span>
-            </p>
-          </div>
-        </ResponseCard>
+        ></ResponseCardReserva>
       )}
     </>
   );
