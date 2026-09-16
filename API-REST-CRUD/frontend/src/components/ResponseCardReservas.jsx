@@ -14,7 +14,7 @@ export function ResponseCardReserva({ reservas, onClose }) {
 
           <div className="reserva-card-body">
             <p>
-              <strong>Alojamiento:</strong> {reserva.alojamiento_id}
+              <strong>Alojamiento:</strong> {reserva.tipo}
             </p>
 
             <p>
@@ -27,6 +27,9 @@ export function ResponseCardReserva({ reservas, onClose }) {
 
             <p>
               <strong>DNI cliente:</strong> {reserva.cliente_dni}
+            </p>
+            <p>
+              <strong>Precio total:</strong> {reserva.precio_total}
             </p>
           </div>
         </article>

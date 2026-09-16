@@ -32,29 +32,39 @@ class ReservaModel {
     return rows.length > 0;
   }
 
-  static async create(data) {
+  static async create(data, precioTotal) {
     const query = `
         INSERT INTO reserva
-        (alojamiento_id, fecha_inicio, fecha_fin, cliente_dni)
-        VALUES (?,?,?,?)`;
+        (alojamiento_id, fecha_inicio, fecha_fin, cliente_dni, precio_total)
+        VALUES (?,?,?,?,?)`;
     // Se envían los valores al SQL.
     const [result] = await db.query(query, [
       data.alojamientoId,
       data.fechaInicio,
       data.fechaFin,
       data.dniCliente,
+      precioTotal,
     ]);
 
     return {
       id: result.insertId, //id generado por sql.
       ...data, // Es "spread operator" significa: copiar todas las propiedads de reserva .
+      precioTotal,
     };
   }
 
   static async search(filtros = {}) {
-    let query = `SELECT *
-                    FROM reserva
-                    WHERE 1 = 1`;
+    let query = `SELECT
+  reserva.id,
+  reserva.cliente_dni,
+  reserva.fecha_inicio,
+  reserva.fecha_fin,
+  reserva.precio_total,
+  alojamiento.tipo
+FROM reserva
+JOIN alojamiento
+  ON reserva.alojamiento_id = alojamiento.id
+WHERE 1 = 1`;
 
     let params = [];
 

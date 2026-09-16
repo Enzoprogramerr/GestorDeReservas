@@ -14,10 +14,11 @@ export function ReservaList({ reservas, onClose }) {
         <thead>
           <tr>
             <th>Id reserva</th>
-            <th>Alojamiento Id</th>
+            <th>Alojamiento</th>
             <th>Fecha de inicio</th>
             <th>Fecha de fin</th>
             <th>DNI cliente</th>
+            <th>Precio total</th>
           </tr>
         </thead>
 
@@ -25,10 +26,11 @@ export function ReservaList({ reservas, onClose }) {
           {reservas.map((reserva) => (
             <tr key={reserva.id}>
               <td>{reserva.id}</td>
-              <td>{reserva.alojamiento_id}</td>
+              <td>{reserva.tipo}</td>
               <td>{FormaterDate(reserva.fecha_inicio)}</td>
               <td>{FormaterDate(reserva.fecha_fin)}</td>
               <td>{reserva.cliente_dni}</td>
+              <td>{reserva.precio_total}</td>
             </tr>
           ))}
         </tbody>

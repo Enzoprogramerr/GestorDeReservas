@@ -1,4 +1,5 @@
 const reservaModel = require("../models/reservaModel");
+const alojamientoModel = require("../models/alojamientoModel");
 
 class ReservaService {
   static async create(data) {
@@ -17,7 +18,15 @@ class ReservaService {
       throw new Error("Ya existe una reserva en esas fechas");
     }
     try {
-      return await reservaModel.create(data);
+      const alojamiento = await alojamientoModel.getById(alojamientoId);
+      const precioAlojamiento = alojamiento.precio;
+      const fechaInicioDate = new Date(fechaInicio);
+      const fechaFinDate = new Date(fechaFin);
+      const cantidadNoches =
+        (fechaFinDate - fechaInicioDate) / (1000 * 60 * 60 * 24);
+      const precioTotal = precioAlojamiento * cantidadNoches;
+
+      return await reservaModel.create(data, precioTotal);
     } catch (error) {
       if (error.code === "ER_NO_REFERENCED_ROW_2") {
         if (

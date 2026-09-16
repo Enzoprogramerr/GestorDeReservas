@@ -82,6 +82,10 @@ export function ReservaCreate({ onClose }) {
               <strong>Dni cliente </strong>
               <span>{reserva.dniCliente}</span>
             </p>
+            <p>
+              <strong>Precio total </strong>
+              <span>{reserva.precioTotal}</span>
+            </p>
           </div>
         </ResponseCard>
       )}

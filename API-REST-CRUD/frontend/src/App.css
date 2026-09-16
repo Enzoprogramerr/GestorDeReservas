@@ -514,6 +514,10 @@ button {
   transform: translateY(0);
 }
 
+.specular-button__label {
+  color: var(--text--color-three);
+}
+
 .header h1 {
   margin: 0;
   font-size: 1.5rem;
