@@ -4,6 +4,16 @@ import { AlojGetByType } from "../components/AlojGetByType";
 import { AlojCreate } from "../components/AlojCreate";
 import { AlojUpdate } from "../components/AlojUpdate";
 import { AlojDelete } from "../components/AlojDelete";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import {
+  faUsers,
+  faUserPlus,
+  faMagnifyingGlass,
+  faUserPen,
+  faUserMinus,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 export function AlojamientoPage() {
   const [mostrarAloj, setMostrarAloj] = useState(false);
@@ -14,79 +24,149 @@ export function AlojamientoPage() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          setMostrarAloj(true);
-        }}
-      >
-        Mostrar alojamientos
-      </button>
-      {mostrarAloj && (
-        <AlojGet
-          onClose={() => {
-            setMostrarAloj(false);
+      <section className="quick-actions">
+        <button
+          type="button"
+          className="quick-action"
+          onClick={() => {
+            setMostrarAloj(true);
           }}
-        />
-      )}
+        >
+          <div className="quick-action-icon">
+            <FontAwesomeIcon icon={faUsers} />
+          </div>
 
-      <button
-        onClick={() => {
-          setMostrarBusqueda(true);
-        }}
-      >
-        Buscar alojamiento por tipo
-      </button>
+          <div className="quick-action-info">
+            <div className="quick-action-title">Ver Alojamientos</div>
+
+            <div className="quick-action-description">
+              Consultar todos los alojamientos
+            </div>
+          </div>
+
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            className="quick-action-arrow"
+          />
+        </button>
+
+        <button
+          type="button"
+          className="quick-action"
+          onClick={() => {
+            setMostrarBusqueda(true);
+          }}
+        >
+          <div className="quick-action-icon">
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </div>
+
+          <div className="quick-action-info">
+            <div className="quick-action-title"> Buscar alojamiento</div>
+
+            <div className="quick-action-description">
+              Buscar alojamiento por tipo
+            </div>
+          </div>
+
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            className="quick-action-arrow"
+          />
+        </button>
+
+        <button
+          type="button"
+          className="quick-action"
+          onClick={() => {
+            setCrearAlojamiento(true);
+          }}
+        >
+          <div className="quick-action-icon">
+            <FontAwesomeIcon icon={faUserPlus} />
+          </div>
+
+          <div className="quick-action-info">
+            <div className="quick-action-title">Nuevo alojamiento</div>
+
+            <div className="quick-action-description">
+              Registrar nuevo alojamiento
+            </div>
+          </div>
+
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            className="quick-action-arrow"
+          />
+        </button>
+
+        <button
+          type="button"
+          className="quick-action"
+          onClick={() => {
+            setUpdateAlojamiento(true);
+          }}
+        >
+          <div className="quick-action-icon">
+            <FontAwesomeIcon icon={faUserPen} />
+          </div>
+
+          <div className="quick-action-info">
+            <div className="quick-action-title">Editar alojamiento</div>
+
+            <div className="quick-action-description">
+              Modificar datos de un alojamiento
+            </div>
+          </div>
+
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            className="quick-action-arrow"
+          />
+        </button>
+
+        <button
+          type="button"
+          className="quick-action"
+          onClick={() => {
+            setDeleteAlojamiento(true);
+          }}
+        >
+          <div className="quick-action-icon">
+            <FontAwesomeIcon icon={faUserMinus} />
+          </div>
+
+          <div className="quick-action-info">
+            <div className="quick-action-title">Eliminar un alojamiento</div>
+
+            <div className="quick-action-description">
+              Eliminar un alojamiento registrado
+            </div>
+          </div>
+
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            className="quick-action-arrow"
+          />
+        </button>
+      </section>
+
+      {mostrarAloj && <AlojGet onClose={() => setMostrarAloj(false)} />}
+
       {mostrarBusqueda && (
-        <AlojGetByType
-          onClose={() => {
-            setMostrarBusqueda(false);
-          }}
-        />
+        <AlojGetByType onClose={() => setMostrarBusqueda(false)} />
       )}
 
-      <button
-        onClick={() => {
-          setCrearAlojamiento(true);
-        }}
-      >
-        Crear nuevo alojamiento
-      </button>
       {crearAlojamiento && (
-        <AlojCreate
-          onClose={() => {
-            setCrearAlojamiento(false);
-          }}
-        />
+        <AlojCreate onClose={() => setCrearAlojamiento(false)} />
       )}
 
-      <button
-        onClick={() => {
-          setUpdateAlojamiento(true);
-        }}
-      >
-        Actualizar un alojamiento
-      </button>
       {updateAlojamiento && (
-        <AlojUpdate
-          onClose={() => {
-            setUpdateAlojamiento(false);
-          }}
-        ></AlojUpdate>
+        <AlojUpdate onClose={() => setUpdateAlojamiento(false)} />
       )}
 
-      <button
-        onClick={() => {
-          setDeleteAlojamiento(true);
-        }}
-      >
-        Eliminar alojamiento
-      </button>
       {deleteAlojamiento && (
-        <AlojDelete
-          onClose={() => {
-            setDeleteAlojamiento(false);
-          }}
-        />
+        <AlojDelete onClose={() => setDeleteAlojamiento(false)} />
       )}
     </>
   );

@@ -5,6 +5,11 @@ import { ResponseCard } from "./ResponseCard";
 export function AlojDelete({ onClose }) {
   const [alojamiento, setAlojamiento] = useState(null);
   const [error, setError] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,13 +26,25 @@ export function AlojDelete({ onClose }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="number" name="id" placeholder="Id de alojamiento" />
-        <button type="submit">Eliminar</button>
-        <button type="button" onClick={onClose}>
-          x
-        </button>
-      </form>
+      <div className="modal-overlay">
+        <div className={`edit-client-modal ${visible ? "open" : ""}`}>
+          <form className="edit-client-form" onSubmit={handleSubmit}>
+            <h3>Eliminar alojamiento</h3>
+            <div className="form-field">
+              <label>Id del alojamiento</label>
+              <input type="number" name="id" placeholder="Id de alojamiento" />
+            </div>
+            <div className="edit-client-actions">
+              <button type="button" className="btn-cancel" onClick={onClose}>
+                Cancelar
+              </button>
+              <button type="submit" className="btn-save">
+                Eliminar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
       {error && <p>{error}</p>}
       {alojamiento && (
         <ResponseCard

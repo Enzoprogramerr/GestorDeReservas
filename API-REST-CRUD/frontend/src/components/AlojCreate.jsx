@@ -5,6 +5,11 @@ import { ResponseCard } from "./ResponseCard";
 export function AlojCreate({ onClose }) {
   const [nuevoAlojamiento, setNuevoAlojamiento] = useState(null);
   const [error, setError] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,15 +29,33 @@ export function AlojCreate({ onClose }) {
   };
   return (
     <>
-      <form className="post-form" onSubmit={handleSubmit}>
-        <input type="text" name="tipo" placeholder="tipo" />
-        <input type="text" name="capacidad" placeholder="capacidad" />
-        <input type="number" name="precio" placeholder="precio" />
-        <button type="submit">Crear</button>
-        <button type="button" onClick={onClose}>
-          x
-        </button>
-      </form>
+      <div className="modal-overlay">
+        <div className={`edit-client-modal ${visible ? "open" : ""}`}>
+          <form className="edit-client-form" onSubmit={handleSubmit}>
+            <h3>Buscar alojamiento</h3>
+            <div className="form-field">
+              <label>Tipo de alojamiento</label>
+              <input type="text" name="tipo" placeholder="tipo" />
+            </div>
+            <div className="form-field">
+              <label>Capacidad</label>
+              <input type="text" name="capacidad" placeholder="capacidad" />
+            </div>
+            <div className="form-field">
+              <label>Precio</label>
+              <input type="number" name="precio" placeholder="precio" />
+            </div>
+            <div className="edit-client-actions">
+              <button type="button" className="btn-cancel" onClick={onClose}>
+                Cancelar
+              </button>
+              <button type="submit" className="btn-save">
+                Eliminar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
       {error && <p>{error}</p>}
       {nuevoAlojamiento && (
         <ResponseCard
