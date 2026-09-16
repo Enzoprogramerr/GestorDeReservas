@@ -35,8 +35,8 @@ export function ClientPut({ onClose }) {
           <form className="edit-client-form" onSubmit={handleSubmit}>
             <h3>Editar cliente</h3>
             <div className="form-field">
-              <label>Dni</label>
-              <input type="number" name="dni" placeholder="Dni" />
+              <label>DNI</label>
+              <input type="number" name="dni" placeholder="DNI" />
             </div>
 
             <div className="form-field">

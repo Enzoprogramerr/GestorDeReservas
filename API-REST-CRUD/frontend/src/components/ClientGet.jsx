@@ -30,7 +30,7 @@ export function ShowClient({ onClose }) {
             {clientes.map((cliente) => (
               <li className="alojamiento-item" key={cliente.dni}>
                 <p>
-                  <strong>Dni: </strong>
+                  <strong>DNI: </strong>
                   <span>{cliente.dni}</span>
                   <strong> Nombre: </strong>
                   <span>{cliente.nombre}</span>
