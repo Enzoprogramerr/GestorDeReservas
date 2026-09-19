@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getByType } from "../services/alojamientoServices";
 import { ResponseCard } from "./ResponseCard";
 import { ResponseCardAlojamiento } from "./ResponseCardAloj";
+import { useEffect } from "react";
 
 export function AlojGetByType({ onClose }) {
   const [alojamiento, setAlojamiento] = useState(null);

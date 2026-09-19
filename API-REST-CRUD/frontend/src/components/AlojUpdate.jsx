@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { update } from "../services/alojamientoServices";
 import { ResponseCard } from "./ResponseCard";
+import { useEffect } from "react";
 
 export function AlojUpdate({ onClose }) {
   const [alojamiento, setAlojamiento] = useState(null);
@@ -38,19 +39,19 @@ export function AlojUpdate({ onClose }) {
             <h3>Editar alojamiento</h3>
             <div className="form-field">
               <label>Id del alojamiento</label>
-              <input type="text" name="id" placeholder="id" />
+              <input type="text" name="id" placeholder="Id" />
             </div>
             <div className="form-field">
               <label>Tipo de alojamiento</label>
-              <input type="text" name="tipo" placeholder="tipo" />
+              <input type="text" name="tipo" placeholder="Tipo" />
             </div>
             <div className="form-field">
               <label>Capacidad del alojamiento</label>
-              <input type="text" name="capacidad" placeholder="capacidad" />
+              <input type="text" name="capacidad" placeholder="Capacidad" />
             </div>
             <div className="form-field">
               <label>Precio del alojamiento</label>
-              <input type="number" name="precio" placeholder="precio" />
+              <input type="number" name="precio" placeholder="Precio" />
             </div>
             <div className="edit-client-actions">
               <button type="button" className="btn-cancel" onClick={onClose}>

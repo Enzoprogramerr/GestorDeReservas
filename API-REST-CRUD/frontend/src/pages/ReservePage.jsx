@@ -4,6 +4,14 @@ import { useState } from "react";
 import { ReservePut } from "../components/ReservPut";
 import { ReserveDelete } from "../components/ReservDelete";
 import { SpecularButton } from "../components/SpecularButton";
+import { SectionAction } from "../components/SectionActions";
+import {
+  faCalendarCheck,
+  faCalendarPlus,
+  faMagnifyingGlass,
+  faPenToSquare,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 export function ReservePage() {
   const [mostrarReserva, setMostrarReserva] = useState(false);
@@ -13,7 +21,75 @@ export function ReservePage() {
 
   return (
     <>
-      <div className="contenedor-item">
+      <SectionAction
+        OpenClose={() => {
+          setMostrarReserva(true);
+        }}
+        icons={faCalendarCheck}
+        title={"Ver reservas"}
+        subtitle={"Consultar todas las reservas"}
+      />
+
+      <SectionAction
+        OpenClose={() => {
+          setCrearReserva(true);
+        }}
+        icons={faCalendarPlus}
+        title={"Nueva reserva"}
+        subtitle={"Registrar nueva reserva"}
+      />
+
+      <SectionAction
+        OpenClose={() => {
+          setUpdateReserva(true);
+        }}
+        icons={faPenToSquare}
+        title={"Editar reserva"}
+        subtitle={"Modificar datos de una reserva"}
+      />
+
+      <SectionAction
+        OpenClose={() => {
+          setDeleteReserva(true);
+        }}
+        icons={faTrash}
+        title={"Eliminar una reserva"}
+        subtitle={"Eliminar una reserva registrada"}
+      />
+
+      {crearReserva && (
+        <ReservaCreate
+          onClose={() => {
+            setCrearReserva(false);
+          }}
+        />
+      )}
+
+      {mostrarReserva && (
+        <MostrarReserva
+          onClose={() => {
+            setMostrarReserva(false);
+          }}
+        />
+      )}
+
+      {updateReserva && (
+        <ReservePut
+          onClose={() => {
+            setUpdateReserva(false);
+          }}
+        />
+      )}
+
+      {deleteReserva && (
+        <ReserveDelete
+          onClose={() => {
+            setDeleteReserva(false);
+          }}
+        />
+      )}
+
+      {/* <div className="contenedor-item">
         <SpecularButton
           tint="#d4e0f2"
           lineColor="#00C3FF"
@@ -86,7 +162,7 @@ export function ReservePage() {
             }}
           />
         )}
-      </div>
+      </div> */}
     </>
   );
 }

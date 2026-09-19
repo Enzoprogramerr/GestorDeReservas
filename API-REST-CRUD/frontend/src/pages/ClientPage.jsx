@@ -4,7 +4,7 @@ import { ClientCreate } from "../components/ClientCreate";
 import { ClientGetById } from "../components/ClientGetById";
 import { ClientPut } from "../components/ClientPut";
 import { ClientDelete } from "../components/ClientDelete";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SectionAction } from "../components/SectionActions";
 
 import {
   faUsers,
@@ -12,7 +12,6 @@ import {
   faMagnifyingGlass,
   faUserPen,
   faUserMinus,
-  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 export function ClientPage() {
@@ -25,118 +24,50 @@ export function ClientPage() {
   return (
     <>
       <section className="quick-actions">
-        <button
-          type="button"
-          className="quick-action"
-          onClick={() => setCargaCliente(true)}
-        >
-          <div className="quick-action-icon">
-            <FontAwesomeIcon icon={faUsers} />
-          </div>
+        <SectionAction
+          OpenClose={() => {
+            setCargaCliente(true);
+          }}
+          icons={faUsers}
+          title={"Ver clientes"}
+          subtitle={"Consultar todos los clientes"}
+        />
 
-          <div className="quick-action-info">
-            <div className="quick-action-title">Ver clientes</div>
+        <SectionAction
+          OpenClose={() => {
+            setMostrarBusqueda(true);
+          }}
+          icons={faMagnifyingGlass}
+          title={"Buscar cliente"}
+          subtitle={"Buscar por DNI"}
+        />
 
-            <div className="quick-action-description">
-              Consultar todos los clientes
-            </div>
-          </div>
+        <SectionAction
+          OpenClose={() => {
+            setCrearCliente(true);
+          }}
+          icons={faUserPlus}
+          title={"Nuevo cliente"}
+          subtitle={"Registrar un nuevo cliente"}
+        />
 
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            className="quick-action-arrow"
-          />
-        </button>
+        <SectionAction
+          OpenClose={() => {
+            setEditarCliente(true);
+          }}
+          icons={faUserPen}
+          title={"Editar cliente"}
+          subtitle={"Modificar datos de un cliente"}
+        />
 
-        <button
-          type="button"
-          className="quick-action"
-          onClick={() => setCrearCliente(true)}
-        >
-          <div className="quick-action-icon">
-            <FontAwesomeIcon icon={faUserPlus} />
-          </div>
-
-          <div className="quick-action-info">
-            <div className="quick-action-title">Nuevo cliente</div>
-
-            <div className="quick-action-description">
-              Registrar un nuevo cliente
-            </div>
-          </div>
-
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            className="quick-action-arrow"
-          />
-        </button>
-
-        <button
-          type="button"
-          className="quick-action"
-          onClick={() => setMostrarBusqueda(true)}
-        >
-          <div className="quick-action-icon">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </div>
-
-          <div className="quick-action-info">
-            <div className="quick-action-title">Buscar cliente</div>
-
-            <div className="quick-action-description">Buscar por DNI</div>
-          </div>
-
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            className="quick-action-arrow"
-          />
-        </button>
-
-        <button
-          type="button"
-          className="quick-action"
-          onClick={() => setEditarCliente(true)}
-        >
-          <div className="quick-action-icon">
-            <FontAwesomeIcon icon={faUserPen} />
-          </div>
-
-          <div className="quick-action-info">
-            <div className="quick-action-title">Editar cliente</div>
-
-            <div className="quick-action-description">
-              Modificar datos de un cliente
-            </div>
-          </div>
-
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            className="quick-action-arrow"
-          />
-        </button>
-
-        <button
-          type="button"
-          className="quick-action"
-          onClick={() => setEliminarCliente(true)}
-        >
-          <div className="quick-action-icon">
-            <FontAwesomeIcon icon={faUserMinus} />
-          </div>
-
-          <div className="quick-action-info">
-            <div className="quick-action-title">Eliminar cliente</div>
-
-            <div className="quick-action-description">
-              Eliminar un cliente registrado
-            </div>
-          </div>
-
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            className="quick-action-arrow"
-          />
-        </button>
+        <SectionAction
+          OpenClose={() => {
+            setEliminarCliente(true);
+          }}
+          icons={faUserMinus}
+          title={"Eliminar cliente"}
+          subtitle={"Eliminar un cliente registrado"}
+        />
       </section>
 
       {cargaCliente && <ShowClient onClose={() => setCargaCliente(false)} />}

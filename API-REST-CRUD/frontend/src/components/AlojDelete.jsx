@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { remove } from "../services/alojamientoServices";
 import { ResponseCard } from "./ResponseCard";
+import { useEffect } from "react";
 
 export function AlojDelete({ onClose }) {
   const [alojamiento, setAlojamiento] = useState(null);

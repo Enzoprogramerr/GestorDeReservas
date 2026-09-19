@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { create } from "../services/alojamientoServices";
 import { ResponseCard } from "./ResponseCard";
+import { useEffect } from "react";
 
 export function AlojCreate({ onClose }) {
   const [nuevoAlojamiento, setNuevoAlojamiento] = useState(null);
@@ -35,15 +36,15 @@ export function AlojCreate({ onClose }) {
             <h3>Buscar alojamiento</h3>
             <div className="form-field">
               <label>Tipo de alojamiento</label>
-              <input type="text" name="tipo" placeholder="tipo" />
+              <input type="text" name="tipo" placeholder="Tipo" />
             </div>
             <div className="form-field">
               <label>Capacidad</label>
-              <input type="text" name="capacidad" placeholder="capacidad" />
+              <input type="text" name="capacidad" placeholder="Capacidad" />
             </div>
             <div className="form-field">
               <label>Precio</label>
-              <input type="number" name="precio" placeholder="precio" />
+              <input type="number" name="precio" placeholder="Precio" />
             </div>
             <div className="edit-client-actions">
               <button type="button" className="btn-cancel" onClick={onClose}>

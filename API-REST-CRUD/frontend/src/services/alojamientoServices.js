@@ -1,14 +1,16 @@
-import { data } from "react-router-dom";
-
 const url = "http://localhost:3000/alojamiento";
 
 export async function getAll() {
-  const response = await fetch(url);
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.error);
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+    return data;
+  } catch (error) {
+    throw new Error("Falló la conexión al servidor.");
   }
-  return data;
 }
 
 export async function getByType(tipo) {
