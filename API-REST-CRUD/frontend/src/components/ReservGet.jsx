@@ -4,13 +4,14 @@ import { ResponseCardReserva } from "./ResponseCardReservas";
 import { getByAlojamiento } from "../services/reservaService";
 import { getByMesAño } from "../services/reservaService";
 import { ReservaList } from "./ReservaTable";
+import { useNavigate } from "react-router-dom";
 
 export function MostrarReserva({ onClose }) {
   const [error, setError] = useState("");
   const [reserva, setReserva] = useState(null);
   const [tipoBusqueda, setTipoBusqueda] = useState(null);
 
-  async function get() {
+  /*  async function get() {
     try {
       const response = await getAll();
       setReserva(response);
@@ -19,7 +20,8 @@ export function MostrarReserva({ onClose }) {
       setReserva(null);
       setError(error.message);
     }
-  }
+  } */
+  const navigate = useNavigate();
 
   async function getByClient(e) {
     e.preventDefault();
@@ -70,7 +72,13 @@ export function MostrarReserva({ onClose }) {
       <h2>¿Cómo queres buscar?</h2>
 
       <div className="busqueda-reserva">
-        <button onClick={get}>Buscar todas las reservas</button>
+        <button
+          onClick={() => {
+            navigate("/reserva/todas");
+          }}
+        >
+          Buscar todas las reservas
+        </button>
 
         <button onClick={() => setTipoBusqueda("cliente")}>
           Buscar por cliente

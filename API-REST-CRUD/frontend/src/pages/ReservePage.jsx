@@ -8,7 +8,6 @@ import { SectionAction } from "../components/SectionActions";
 import {
   faCalendarCheck,
   faCalendarPlus,
-  faMagnifyingGlass,
   faPenToSquare,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
