@@ -4,6 +4,7 @@ import { Card } from "../pages/Card";
 import { FormaterDate } from "../utils/formaterDate";
 import { ReservePut } from "./ReservPut";
 import { ReserveDelete } from "../components/ReservDelete";
+import { formaterPrice } from "../utils/formaterPrice";
 
 export function AllReservation() {
   const [error, setError] = useState("");
@@ -38,7 +39,7 @@ export function AllReservation() {
             lineaTres={`DNI: ${r.cliente_dni}`}
             lineaCuatro={`${FormaterDate(r.fecha_inicio)} – 
                             ${FormaterDate(r.fecha_fin)}`}
-            lineaCinco={`Precio total: ${r.precio_total}`}
+            lineaCinco={`Precio total: ${formaterPrice(r.precio_total)}`}
             state={"Próximo"}
             onEdit={() => {
               setPutReserva(true);
