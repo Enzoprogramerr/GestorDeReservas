@@ -5,6 +5,7 @@ import { ClientGetById } from "../components/ClientGetById";
 import { ClientPut } from "../components/ClientPut";
 import { ClientDelete } from "../components/ClientDelete";
 import { SectionAction } from "../components/SectionActions";
+import { Navbar } from "../components/Navbar";
 
 import {
   faUsers,
@@ -69,6 +70,8 @@ export function ClientPage() {
           subtitle={"Eliminar un cliente registrado"}
         />
       </section>
+
+      <Navbar />
 
       {cargaCliente && <ShowClient onClose={() => setCargaCliente(false)} />}
 

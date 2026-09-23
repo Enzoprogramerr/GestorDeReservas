@@ -5,6 +5,7 @@ import { AlojCreate } from "../components/AlojCreate";
 import { AlojUpdate } from "../components/AlojUpdate";
 import { AlojDelete } from "../components/AlojDelete";
 import { SectionAction } from "../components/SectionActions";
+import { Navbar } from "../components/Navbar";
 import {
   faHouse,
   faPlus,
@@ -68,6 +69,8 @@ export function AlojamientoPage() {
           subtitle={"Eliminar un alojamiento registrado"}
         />
       </section>
+
+      <Navbar />
 
       {mostrarAloj && <AlojGet onClose={() => setMostrarAloj(false)} />}
 

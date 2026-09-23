@@ -5,6 +5,7 @@ import { ReservePut } from "../components/ReservPut";
 import { ReserveDelete } from "../components/ReservDelete";
 import { SpecularButton } from "../components/SpecularButton";
 import { SectionAction } from "../components/SectionActions";
+import { Navbar } from "../components/Navbar";
 import {
   faCalendarCheck,
   faCalendarPlus,
@@ -88,6 +89,7 @@ export function ReservePage() {
         />
       )}
 
+      <Navbar />
       {/* <div className="contenedor-item">
         <SpecularButton
           tint="#d4e0f2"
