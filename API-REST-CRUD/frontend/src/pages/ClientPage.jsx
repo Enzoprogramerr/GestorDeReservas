@@ -6,6 +6,7 @@ import { ClientPut } from "../components/ClientPut";
 import { ClientDelete } from "../components/ClientDelete";
 import { SectionAction } from "../components/SectionActions";
 import { Navbar } from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 import {
   faUsers,
@@ -22,12 +23,14 @@ export function ClientPage() {
   const [editarCliente, setEditarCliente] = useState(false);
   const [eliminarCliente, setEliminarCliente] = useState(false);
 
+  const navigate = useNavigate();
+
   return (
     <>
       <section className="quick-actions">
         <SectionAction
           OpenClose={() => {
-            setCargaCliente(true);
+            navigate("/cliente/todos");
           }}
           icons={faUsers}
           title={"Ver clientes"}

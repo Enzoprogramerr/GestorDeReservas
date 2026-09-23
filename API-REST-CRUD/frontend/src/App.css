@@ -49,8 +49,8 @@ button {
 
 .btn-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: -15px;
+  right: -10px;
   width: 30px;
   height: 30px;
   display: flex;
@@ -746,7 +746,7 @@ button {
   margin: 0 0 20px;
   font-size: 1.2rem;
   font-weight: 700;
-  color: #247a45;
+  color: var(--background-color-secundary);
   text-align: center;
 }
 .alojamiento-list {
@@ -791,6 +791,22 @@ button {
   font-size: 1rem;
   font-weight: 500;
   color: #1e293b;
+}
+
+.client-response {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 1rem;
+}
+
+.client-response strong {
+  color: var(--surface-color);
+}
+
+.client-response p {
+  margin: 0.5rem;
+  color: var(--text-muted);
 }
 /* :root {
   --primary-color: #2563eb;
@@ -966,11 +982,7 @@ ul {
 .cliente-info p {
   color: black;
 }
-.client-response {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
+
 
 .client-response p {
   color: black;

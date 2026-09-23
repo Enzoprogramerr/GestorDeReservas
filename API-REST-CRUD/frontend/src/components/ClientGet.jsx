@@ -1,49 +1,57 @@
 import { useState, useEffect } from "react";
 import { getClientes } from "../services/clienteServices";
-import { ResponseCard } from "./ResponseCard";
+import { ClientPut } from "../components/ClientPut";
+import { ClientDelete } from "../components/ClientDelete";
+import { Card } from "../pages/Card";
 
 //creo funcion madre
-export function ShowClient({ onClose }) {
+export function ShowClient() {
   const [clientes, setClientes] = useState(null);
   const [error, setError] = useState("");
+  const [putClient, setPutClient] = useState(false);
+  const [deleteClient, setDeleteClient] = useState(false);
+
+  async function cargarClientes() {
+    try {
+      const datos = await getClientes();
+      setClientes(datos);
+      setError("");
+    } catch (error) {
+      setError(error.message);
+    }
+  }
 
   useEffect(() => {
-    async function cargarClientes() {
-      try {
-        const datos = await getClientes();
-        setClientes(datos);
-        setError("");
-      } catch (error) {
-        setError(error.message);
-      }
-    }
     cargarClientes();
   }, []);
+
+  const onClose = async () => {
+    setPutClient(false);
+    setDeleteClient(false);
+    await cargarClientes();
+  };
 
   return (
     <>
       {error && <p>{error}</p>}
       {/* Si existe un error, muestra un párrafo con el mensaje del error. Si no existe, no muestres nada." */}
-      {clientes && (
-        <ResponseCard titulo="Lista de clientes:" onClose={onClose}>
-          <ul className="alojamiento-list">
-            {clientes.map((cliente) => (
-              <li className="alojamiento-item" key={cliente.dni}>
-                <p>
-                  <strong>DNI: </strong>
-                  <span>{cliente.dni}</span>
-                  <strong> Nombre: </strong>
-                  <span>{cliente.nombre}</span>
-                  <strong> Apellido: </strong>
-                  <span>{cliente.apellido}</span>
-                  <strong>Telefono:</strong>
-                  <span>{cliente.telefono}</span>
-                </p>
-              </li>
-            ))}
-          </ul>
-        </ResponseCard>
-      )}
+      <h1>Lista de clientes</h1>
+      {clientes &&
+        clientes.map((cliente) => (
+          <Card
+            key={cliente.dni}
+            titulo={`DNI: ${cliente.dni}`}
+            lineaDos={cliente.nombre}
+            lineaTres={cliente.apellido}
+            lineaCuatro={`Tel: ${cliente.telefono}`}
+            lineaCinco={""}
+            state={""}
+            onEdit={() => setPutClient(true)}
+            onDelete={() => setDeleteClient(true)}
+          ></Card>
+        ))}
+      {putClient && <ClientPut onClose={onClose} />}
+      {deleteClient && <ClientDelete onClose={onClose} />}
     </>
   );
 }

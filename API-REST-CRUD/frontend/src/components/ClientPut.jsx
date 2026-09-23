@@ -32,48 +32,54 @@ export function ClientPut({ onClose }) {
     <>
       <div className="modal-overlay">
         <div className={`edit-client-modal ${visible ? "open" : ""}`}>
-          <form className="edit-client-form" onSubmit={handleSubmit}>
-            <h3>Editar cliente</h3>
-            <div className="form-field">
-              <label>DNI</label>
-              <input type="number" name="dni" placeholder="DNI" />
-            </div>
+          {clienteEditado ? (
+            <ResponseCardClient
+              cliente={clienteEditado}
+              titulo={"Cliente actualizado con éxito"}
+              onClose={onClose}
+            />
+          ) : error ? (
+            <div>
+              <h3>Error al actualizar</h3>
+              <p>{error}</p>
 
-            <div className="form-field">
-              <label>Nombre</label>
-              <input type="text" name="nombre" placeholder="Nombre" />
+              <button onClick={() => setError("")}>Volver</button>
             </div>
+          ) : (
+            <form className="edit-client-form" onSubmit={handleSubmit}>
+              <h3>Editar cliente</h3>
+              <div className="form-field">
+                <label>DNI</label>
+                <input type="number" name="dni" placeholder="DNI" />
+              </div>
 
-            <div className="form-field">
-              <label>Apellido</label>
-              <input type="text" name="apellido" placeholder="Apellido" />
-            </div>
+              <div className="form-field">
+                <label>Nombre</label>
+                <input type="text" name="nombre" placeholder="Nombre" />
+              </div>
 
-            <div className="form-field">
-              <label>Telefono</label>
-              <input type="number" name="telefono" placeholder="Teléfono" />
-            </div>
+              <div className="form-field">
+                <label>Apellido</label>
+                <input type="text" name="apellido" placeholder="Apellido" />
+              </div>
 
-            <div className="edit-client-actions">
-              <button type="button" className="btn-cancel" onClick={onClose}>
-                Cancelar
-              </button>
-              <button type="submit" className="btn-save">
-                Guardar
-              </button>
-            </div>
-          </form>
+              <div className="form-field">
+                <label>Telefono</label>
+                <input type="number" name="telefono" placeholder="Teléfono" />
+              </div>
+
+              <div className="edit-client-actions">
+                <button type="button" className="btn-cancel" onClick={onClose}>
+                  Cancelar
+                </button>
+                <button type="submit" className="btn-save">
+                  Guardar
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </div>
-
-      {error && <p>{error}</p>}
-      {clienteEditado && (
-        <ResponseCardClient
-          cliente={clienteEditado}
-          titulo={"Cliente actualizado con éxito"}
-          onClose={onClose}
-        />
-      )}
     </>
   );
 }
