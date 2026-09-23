@@ -38,6 +38,7 @@ export function AllReservation() {
             lineaTres={`DNI: ${r.cliente_dni}`}
             lineaCuatro={`${FormaterDate(r.fecha_inicio)} – 
                             ${FormaterDate(r.fecha_fin)}`}
+            lineaCinco={`Precio total: ${r.precio_total}`}
             state={"Próximo"}
             onEdit={() => {
               setPutReserva(true);

@@ -6,6 +6,7 @@ export function Card({
   lineaDos,
   lineaTres,
   lineaCuatro,
+  lineaCinco,
   state,
   onEdit,
   onDelete,
@@ -20,6 +21,8 @@ export function Card({
         <p className="entity-card-line">{lineaTres}</p>
 
         <p className="entity-card-line">{lineaCuatro}</p>
+
+        <p className="entity-card-line">{lineaCinco}</p>
       </div>
 
       <div className="entity-card-actions">
