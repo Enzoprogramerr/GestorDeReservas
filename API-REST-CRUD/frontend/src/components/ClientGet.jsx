@@ -10,6 +10,7 @@ export function ShowClient() {
   const [error, setError] = useState("");
   const [putClient, setPutClient] = useState(false);
   const [deleteClient, setDeleteClient] = useState(false);
+  const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
 
   async function cargarClientes() {
     try {
@@ -46,11 +47,16 @@ export function ShowClient() {
             lineaCuatro={`Tel: ${cliente.telefono}`}
             lineaCinco={""}
             state={""}
-            onEdit={() => setPutClient(true)}
+            onEdit={() => {
+              setClienteSeleccionado(cliente);
+              setPutClient(true);
+            }}
             onDelete={() => setDeleteClient(true)}
           ></Card>
         ))}
-      {putClient && <ClientPut onClose={onClose} />}
+      {putClient && (
+        <ClientPut onClose={onClose} cliente={clienteSeleccionado} />
+      )}
       {deleteClient && <ClientDelete onClose={onClose} />}
     </>
   );

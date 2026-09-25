@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { updateClientes } from "../services/clienteServices";
 import { ResponseCardClient } from "./ResponseCardClient";
 
-export function ClientPut({ onClose }) {
+export function ClientPut({ onClose, cliente }) {
   const [clienteEditado, setClienteEditado] = useState(null);
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
+
+  const dniActual = cliente.dni;
 
   useEffect(() => {
     setVisible(true);
@@ -15,13 +17,13 @@ export function ClientPut({ onClose }) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const nuevoCliente = {
-      dni: Number(formData.get("dni")),
+      nuevoDni: Number(formData.get("dni")),
       nombre: formData.get("nombre"),
       apellido: formData.get("apellido"),
       telefono: Number(formData.get("telefono")),
     };
     try {
-      const response = await updateClientes(nuevoCliente);
+      const response = await updateClientes(dniActual, nuevoCliente);
       setClienteEditado(response);
       setError("");
     } catch (error) {

@@ -632,6 +632,16 @@ button {
   color: var(--text--color-three);
 }
 
+.content-title {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.check {
+  color: #16a34a;
+}
+
 .header h1 {
   margin: 0;
   font-size: 1.5rem;
@@ -731,10 +741,7 @@ button {
 }
 
 .div-response {
-  margin: 25px auto;
   padding: 24px;
-  border: 1px solid #d8eadd;
-  border-radius: 12px;
   background-color: #f4fbf6;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;

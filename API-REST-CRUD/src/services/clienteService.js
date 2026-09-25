@@ -45,12 +45,19 @@ class ClienteService {
     return result;
   }
 
-  static async put(dni, data) {
-    const { nombre, apellido, telefono } = data;
+  static async put(dniActual, data) {
+    const { nuevoDni, nombre, apellido, telefono } = data;
     if (!nombre || !apellido) {
       throw new Error("Debe ingresar nombre y apellido.");
     }
-    const result = await clienteModel.put(dni, nombre, apellido, telefono);
+    const dniActualNumber = Number(dniActual);
+    const result = await clienteModel.put(
+      dniActualNumber,
+      nuevoDni,
+      nombre,
+      apellido,
+      telefono,
+    );
     if (result === null) {
       throw new Error("Ese dni no se encuentra registrado.");
     }

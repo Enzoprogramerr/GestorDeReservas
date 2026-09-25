@@ -40,10 +40,9 @@ export async function getByIdClientes(id) {
   return data;
 }
 
-export async function updateClientes(cliente) {
-  const { dni } = cliente;
+export async function updateClientes(dniActual, cliente) {
   //enviar dni por url
-  const response = await fetch(`${API_URL}/${dni}`, {
+  const response = await fetch(`${API_URL}/${dniActual}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(cliente),
