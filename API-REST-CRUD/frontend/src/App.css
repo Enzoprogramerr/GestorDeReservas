@@ -550,7 +550,7 @@ button {
 
 .entity-card-edit {
   background-color: var(--color-background);
-  color: var(--color-primary);
+  color: var(--background-color-secundary);
 }
 
 .entity-card-delete {
@@ -640,6 +640,14 @@ button {
 
 .check {
   color: #16a34a;
+}
+.check-error {
+  color: #ef4444;
+}
+
+.close-error {
+  padding-top: 1rem;
+  color: var(--text-muted);
 }
 
 .header h1 {

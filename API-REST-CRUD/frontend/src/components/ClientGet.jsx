@@ -3,6 +3,7 @@ import { getClientes } from "../services/clienteServices";
 import { ClientPut } from "../components/ClientPut";
 import { ClientDelete } from "../components/ClientDelete";
 import { Card } from "../pages/Card";
+import { Navbar } from "../components/Navbar";
 
 //creo funcion madre
 export function ShowClient() {
@@ -36,7 +37,7 @@ export function ShowClient() {
     <>
       {error && <p>{error}</p>}
       {/* Si existe un error, muestra un párrafo con el mensaje del error. Si no existe, no muestres nada." */}
-      <h1>Lista de clientes</h1>
+      <h1 className="title-card">Lista de clientes</h1>
       {clientes &&
         clientes.map((cliente) => (
           <Card
@@ -51,13 +52,19 @@ export function ShowClient() {
               setClienteSeleccionado(cliente);
               setPutClient(true);
             }}
-            onDelete={() => setDeleteClient(true)}
+            onDelete={() => {
+              setClienteSeleccionado(cliente);
+              setDeleteClient(true);
+            }}
           ></Card>
         ))}
       {putClient && (
         <ClientPut onClose={onClose} cliente={clienteSeleccionado} />
       )}
-      {deleteClient && <ClientDelete onClose={onClose} />}
+      {deleteClient && (
+        <ClientDelete onClose={onClose} cliente={clienteSeleccionado} />
+      )}
+      <Navbar />
     </>
   );
 }

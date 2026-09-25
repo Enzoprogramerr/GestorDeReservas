@@ -69,11 +69,20 @@ class ClienteService {
     if (!Number.isInteger(dniNumber) || dniNumber <= 0) {
       throw new Error("Debe ingresar carácter numérico mayor a cero.");
     }
-    const result = await clienteModel.remove(dniNumber);
-    if (result.affectedRows === 0) {
-      throw new Error("No existe un cliente con ese id.");
+    try {
+      const result = await clienteModel.remove(dniNumber);
+      if (result.affectedRows === 0) {
+        throw new Error("No existe un cliente con ese id.");
+      }
+      return "Cliente eliminado correctamente.";
+    } catch (error) {
+      if (error.code === "ER_ROW_IS_REFERENCED_2") {
+        throw new Error(
+          "No se puede eliminar un cliente que ya exista en una reserva.",
+        );
+      }
+      throw error;
     }
-    return "Cliente eliminado correctamente.";
   }
 }
 module.exports = ClienteService;
