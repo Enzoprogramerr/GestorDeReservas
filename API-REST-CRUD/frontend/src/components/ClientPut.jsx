@@ -41,12 +41,11 @@ export function ClientPut({ onClose, cliente }) {
               onClose={onClose}
             />
           ) : error ? (
-            <div>
-              <h3>Error al actualizar</h3>
-              <p>{error}</p>
-
-              <button onClick={() => setError("")}>Volver</button>
-            </div>
+            <ErrorCard
+              title={"Error al eliminar"}
+              message={error}
+              close={onClose}
+            />
           ) : (
             <form className="edit-client-form" onSubmit={handleSubmit}>
               <h3>Editar cliente</h3>

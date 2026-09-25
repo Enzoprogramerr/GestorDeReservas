@@ -98,7 +98,17 @@ WHERE 1 = 1`;
 
   static async getById(id) {
     const query = `
-    SELECT  * FROM reserva WHERE id=?`;
+    SELECT 
+      reserva.id,
+      reserva.cliente_dni,
+      reserva.fecha_inicio,
+      reserva.fecha_fin,
+      reserva.precio_total,
+      alojamiento.tipo
+    FROM reserva
+    JOIN alojamiento
+      ON reserva.alojamiento_id = alojamiento.id
+    WHERE reserva.id = ?`;
     const [result] = await db.query(query, [id]);
     return result[0];
   }
@@ -134,7 +144,7 @@ WHERE 1 = 1`;
       nuevaReserva.alojamientoId,
       nuevaReserva.fechaInicio,
       nuevaReserva.fechaFin,
-      nuevaReserva.id,
+      id,
     ]);
     if (result.affectedRows === 0) {
       return null;

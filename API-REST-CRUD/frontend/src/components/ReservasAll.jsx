@@ -12,6 +12,7 @@ export function AllReservation() {
   const [reservas, setReservas] = useState(null);
   const [putReserva, setPutReserva] = useState(false);
   const [deleteReserva, setDeleteReserva] = useState(false);
+  const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
 
   useEffect(() => {
     async function get() {
@@ -35,7 +36,7 @@ export function AllReservation() {
         reservas.map((r) => (
           <Card
             key={r.id}
-            titulo={`Reserva id:${r.id}`}
+            titulo={`Reserva Id: ${r.id}`}
             lineaDos={r.tipo}
             lineaTres={`DNI: ${r.cliente_dni}`}
             lineaCuatro={`${FormaterDate(r.fecha_inicio)} – 
@@ -44,9 +45,11 @@ export function AllReservation() {
             state={"Próximo"}
             onEdit={() => {
               setPutReserva(true);
+              setReservaSeleccionada(r);
             }}
             onDelete={() => {
               setDeleteReserva(true);
+              setReservaSeleccionada(r);
             }}
           />
         ))}
@@ -55,6 +58,7 @@ export function AllReservation() {
           onClose={() => {
             setPutReserva(false);
           }}
+          idReserva={reservaSeleccionada}
         />
       )}
       {deleteReserva && (
@@ -62,6 +66,7 @@ export function AllReservation() {
           onClose={() => {
             setDeleteReserva(false);
           }}
+          idReserva={reservaSeleccionada}
         />
       )}
       <Navbar />

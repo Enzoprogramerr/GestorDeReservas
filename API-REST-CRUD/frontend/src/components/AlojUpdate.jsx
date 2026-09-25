@@ -10,7 +10,7 @@ export function AlojUpdate({ onClose, aloj }) {
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
 
-  let idAEliminar = aloj?.id;
+  let idAEditar = aloj?.id;
 
   useEffect(() => {
     setVisible(true);
@@ -18,10 +18,10 @@ export function AlojUpdate({ onClose, aloj }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!idAEliminar) {
+    if (!idAEditar) {
       const data = new FormData(e.target);
       const id = data.get("id");
-      idAEliminar = id;
+      idAEditar = id;
     }
     const formData = new FormData(e.target);
     const nuevoAlojamiento = {

@@ -33,6 +33,10 @@ body {
   color: var(--text-color);
 }
 
+#root {
+  padding-bottom: 4rem;
+}
+
 button,
 select,
 textarea {
@@ -567,6 +571,7 @@ button {
   left: 0;
   width: 100%;
   background-color: white;
+  height: 4rem;
 }
 
 .bottom-nav ul {

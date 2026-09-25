@@ -107,18 +107,20 @@ class ReservaService {
       throw new Error("Debe ingresar el campo 'dniCliente'.");
     }
 
+    const idNumber = Number(id);
+
     try {
       const conflicto = await reservaModel.existeConflicto(
         alojamientoId,
         fechaInicio,
         fechaFin,
-        id,
+        idNumber,
       );
       if (conflicto) {
         throw new Error("Ya existe una reserva en las fechas indicadas.");
       }
 
-      const nuevaReserva = await reservaModel.update(id, reserva);
+      const nuevaReserva = await reservaModel.update(idNumber, reserva);
       if (nuevaReserva === null) {
         throw new Error("El Id de la reserva no está registrada.");
       }

@@ -49,9 +49,8 @@ export async function create(reserva) {
   return data;
 }
 
-export async function update(reserva) {
-  const { id } = reserva;
-  const response = await fetch(`${url}/${id}`, {
+export async function update(idAEditar, reserva) {
+  const response = await fetch(`${url}/${idAEditar}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(reserva),

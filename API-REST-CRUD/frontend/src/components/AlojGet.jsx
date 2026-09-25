@@ -44,9 +44,9 @@ export function AlojGet() {
           <Card
             key={a.id}
             titulo={a.tipo}
-            lineaDos={`Capacidad: ${a.capacidad}`}
-            lineaTres={`Precio: ${formaterPrice(a.precio)}`}
-            lineaCuatro={""}
+            lineaDos={`Id: ${a.id}`}
+            lineaTres={`Capacidad: ${a.capacidad}`}
+            lineaCuatro={`Precio: ${formaterPrice(a.precio)}`}
             lineaCinco={""}
             state={""}
             onEdit={() => {
