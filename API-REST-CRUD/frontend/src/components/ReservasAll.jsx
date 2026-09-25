@@ -5,6 +5,7 @@ import { FormaterDate } from "../utils/formaterDate";
 import { ReservePut } from "./ReservPut";
 import { ReserveDelete } from "../components/ReservDelete";
 import { formaterPrice } from "../utils/formaterPrice";
+import { Navbar } from "../components/Navbar";
 
 export function AllReservation() {
   const [error, setError] = useState("");
@@ -29,7 +30,7 @@ export function AllReservation() {
   return (
     <>
       {error && <p>{error}</p>}
-      <h1 className="title-card">Lista de clientes</h1>
+      <h1 className="title-card">Lista de reservas</h1>
       {reservas &&
         reservas.map((r) => (
           <Card
@@ -63,6 +64,7 @@ export function AllReservation() {
           }}
         />
       )}
+      <Navbar />
     </>
   );
 }

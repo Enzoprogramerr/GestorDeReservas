@@ -58,11 +58,20 @@ class AlojamientoService {
   }
 
   static async remove(id) {
-    const result = await alojamientoModel.remove(id);
-    if (result.affectedRows === 0) {
-      throw new Error("No existe un alojamiento con ese id");
+    try {
+      const result = await alojamientoModel.remove(id);
+      if (result.affectedRows === 0) {
+        throw new Error("No existe un alojamiento con ese id");
+      }
+      return "Alojamiento eliminado correctamente.";
+    } catch (error) {
+      if (error.code === "ER_ROW_IS_REFERENCED_2") {
+        throw new Error(
+          "No se puede eliminar un alojamiento que ya existe en una reserva.",
+        );
+      }
+      throw error;
     }
-    return "Alojamiento eliminado correctamente.";
   }
 }
 module.exports = AlojamientoService;

@@ -5,6 +5,7 @@ import { AlojCreate } from "../components/AlojCreate";
 import { AlojUpdate } from "../components/AlojUpdate";
 import { AlojDelete } from "../components/AlojDelete";
 import { SectionAction } from "../components/SectionActions";
+import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import {
   faHouse,
@@ -15,18 +16,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export function AlojamientoPage() {
-  const [mostrarAloj, setMostrarAloj] = useState(false);
   const [mostrarBusqueda, setMostrarBusqueda] = useState(false);
   const [crearAlojamiento, setCrearAlojamiento] = useState(false);
   const [updateAlojamiento, setUpdateAlojamiento] = useState(false);
   const [deleteAlojamiento, setDeleteAlojamiento] = useState(false);
+
+  const navigate = useNavigate();
 
   return (
     <>
       <section className="quick-actions">
         <SectionAction
           OpenClose={() => {
-            setMostrarAloj(true);
+            navigate("/alojamiento/todos");
           }}
           icons={faHouse}
           title={"Ver alojamientos"}
@@ -72,7 +74,7 @@ export function AlojamientoPage() {
 
       <Navbar />
 
-      {mostrarAloj && <AlojGet onClose={() => setMostrarAloj(false)} />}
+      {/*  {mostrarAloj && <AlojGet onClose={() => setMostrarAloj(false)} />} */}
 
       {mostrarBusqueda && (
         <AlojGetByType onClose={() => setMostrarBusqueda(false)} />
