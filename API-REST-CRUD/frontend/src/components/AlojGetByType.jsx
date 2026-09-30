@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getByType } from "../services/alojamientoServices";
-import { ResponseCard } from "./ResponseCard";
+import { ErrorCard } from "./ErrorCard";
 import { ResponseCardAlojamiento } from "./ResponseCardAloj";
 import { useEffect } from "react";
 
@@ -29,36 +29,41 @@ export function AlojGetByType({ onClose }) {
     <>
       <div className="modal-overlay">
         <div className={`edit-client-modal ${visible ? "open" : ""}`}>
-          <form className="edit-client-form" onSubmit={handleSubmit}>
-            <h3>Buscar alojamiento</h3>
-            <div className="form-field">
-              <label>Tipo de alojamiento</label>
-              <input
-                type="text"
-                name="tipo"
-                placeholder="Tipo de alojamiento"
-              />
-            </div>
-            <div className="edit-client-actions">
-              <button type="button" className="btn-cancel" onClick={onClose}>
-                Cancelar
-              </button>
-              <button type="submit" className="btn-save">
-                Eliminar
-              </button>
-            </div>
-          </form>
+          {alojamiento ? (
+            <ResponseCardAlojamiento
+              alojamiento={alojamiento}
+              titulo={"Alojamiento encontrado con éxito"}
+              onClose={onClose}
+            />
+          ) : error ? (
+            <ErrorCard
+              title={"Error al eliminar"}
+              message={error}
+              close={onClose}
+            />
+          ) : (
+            <form className="edit-client-form" onSubmit={handleSubmit}>
+              <h3>Buscar alojamiento</h3>
+              <div className="form-field">
+                <label>Tipo de alojamiento</label>
+                <input
+                  type="text"
+                  name="tipo"
+                  placeholder="Tipo de alojamiento"
+                />
+              </div>
+              <div className="edit-client-actions">
+                <button type="button" className="btn-cancel" onClick={onClose}>
+                  Cancelar
+                </button>
+                <button type="submit" className="btn-save">
+                  Buscar
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </div>
-
-      {error && <p>{error}</p>}
-      {alojamiento && (
-        <ResponseCardAlojamiento
-          alojamiento={alojamiento}
-          titulo={"Alojamiento encontrado con éxito"}
-          onClose={onClose}
-        />
-      )}
     </>
   );
 }

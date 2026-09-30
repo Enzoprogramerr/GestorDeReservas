@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getAll } from "../services/alojamientoServices";
-import { ResponseCard } from "./ResponseCard";
 import { AlojUpdate } from "./AlojUpdate";
 import { AlojDelete } from "./AlojDelete";
 import { Card } from "../pages/Card";

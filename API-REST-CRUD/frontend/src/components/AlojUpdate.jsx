@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { update } from "../services/alojamientoServices";
-import { ResponseCard } from "./ResponseCard";
 import { useEffect } from "react";
-import { Card } from "../pages/Card";
 import { ResponseCardAlojamiento } from "./ResponseCardAloj";
+import { ErrorCard } from "./ErrorCard";
 
 export function AlojUpdate({ onClose, aloj }) {
   const [alojamiento, setAlojamiento] = useState(null);
@@ -31,7 +30,7 @@ export function AlojUpdate({ onClose, aloj }) {
     };
 
     try {
-      const response = await update(idAEliminar, nuevoAlojamiento);
+      const response = await update(idAEditar, nuevoAlojamiento);
       setAlojamiento(response);
       setError("");
     } catch (error) {

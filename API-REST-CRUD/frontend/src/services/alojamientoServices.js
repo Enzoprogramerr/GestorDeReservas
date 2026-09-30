@@ -35,8 +35,8 @@ export async function create(alojamiento) {
   return data;
 }
 
-export async function update(idAEliminar, alojamiento) {
-  const response = await fetch(`${url}/${idAEliminar}`, {
+export async function update(idAEditar, alojamiento) {
+  const response = await fetch(`${url}/${idAEditar}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(alojamiento),
