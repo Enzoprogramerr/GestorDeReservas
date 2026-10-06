@@ -32,7 +32,7 @@ export function AlojGetByType({ onClose }) {
           {alojamiento ? (
             <ResponseCardAlojamiento
               alojamiento={alojamiento}
-              titulo={"Alojamiento encontrado con éxito"}
+              titulo={"Alojamiento encontrado"}
               onClose={onClose}
             />
           ) : error ? (

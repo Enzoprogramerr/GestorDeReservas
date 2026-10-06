@@ -68,21 +68,17 @@ WHERE 1 = 1`;
 
     let params = [];
 
-    if (filtros.dniNumber) {
+    if (filtros.cliente_dni) {
       query += ` AND cliente_dni = ?`;
-      params.push(filtros.dniNumber);
+      params.push(filtros.cliente_dni);
     }
-    if (filtros.idAlojNumber) {
+    if (filtros.alojamiento_id) {
       query += ` AND alojamiento_id = ?`;
-      params.push(filtros.idAlojNumber);
+      params.push(filtros.alojamiento_id);
     }
-    if (filtros.mesNumber && filtros.anioNumber) {
-      const inicioMes = new Date(filtros.anioNumber, filtros.mesNumber - 1, 1);
-      const inicioMesSiguiente = new Date(
-        filtros.anioNumber,
-        filtros.mesNumber,
-        1,
-      );
+    if (filtros.mes && filtros.anio) {
+      const inicioMes = new Date(filtros.anio, filtros.mes - 1, 1);
+      const inicioMesSiguiente = new Date(filtros.anio, filtros.mes, 1);
       const formatDate = (date) =>
         date.toISOString().slice(0, 19).replace("T", " ");
       query += ` AND NOT (

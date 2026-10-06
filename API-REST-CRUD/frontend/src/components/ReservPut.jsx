@@ -4,7 +4,7 @@ import { ResponseCardReserva } from "./ResponseCardReservas";
 import { useEffect } from "react";
 import { ErrorCard } from "./ErrorCard";
 
-export function ReservePut({ onClose, idReserva }) {
+export function ReservePut({ onClose, idReserva, onUpdate }) {
   const [reserva, setReserva] = useState(null);
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
@@ -46,7 +46,7 @@ export function ReservePut({ onClose, idReserva }) {
             <ResponseCardReserva
               reserva={reserva}
               titulo={"Reserva actualizada"}
-              onClose={onClose}
+              onClose={onUpdate}
             ></ResponseCardReserva>
           ) : error ? (
             <ErrorCard

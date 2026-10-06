@@ -4,7 +4,7 @@ import { ResponseCard } from "./ResponseCard";
 import { ErrorCard } from "./ErrorCard";
 import { useEffect } from "react";
 
-export function ReserveDelete({ onClose, idReserva }) {
+export function ReserveDelete({ onClose, idReserva, onUpdate }) {
   const [reserva, setReserva] = useState(null);
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
@@ -37,7 +37,7 @@ export function ReserveDelete({ onClose, idReserva }) {
       <div className="modal-overlay">
         <div className={`edit-client-modal ${visible ? "open" : ""}`}>
           {reserva ? (
-            <ResponseCard titulo={reserva} onClose={onClose}></ResponseCard>
+            <ResponseCard titulo={reserva} onClose={onUpdate}></ResponseCard>
           ) : error ? (
             <ErrorCard
               title={"Error al eliminar"}

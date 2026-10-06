@@ -64,32 +64,30 @@ class ReservaService {
       const result = await reservaModel.search();
       return result;
     }
-
     const { cliente_dni, alojamiento_id, mes, anio } = filtros;
-    if (
+    /* if (
       cliente_dni === "" ||
       alojamiento_id === "" ||
       mes === "" ||
       anio === ""
     ) {
       throw new Error("Debe ingresar un valor en el campo.");
+    } */
+    const numericFilters = {};
+    if (cliente_dni !== undefined) {
+      numericFilters.cliente_dni = Number(cliente_dni);
     }
-    const dniNumber = Number(cliente_dni);
-    const idAlojNumber = Number(alojamiento_id);
-    const mesNumber = Number(mes);
-    const anioNumber = Number(anio);
+    if (alojamiento_id !== undefined) {
+      numericFilters.alojamiento_id = Number(alojamiento_id);
+    }
+    if (mes !== undefined) {
+      numericFilters.mes = Number(mes);
+    }
+    if (anio !== undefined) {
+      numericFilters.anio = Number(anio);
+    }
 
-    const result = await reservaModel.search({
-      dniNumber,
-      idAlojNumber,
-      mesNumber,
-      anioNumber,
-    });
-    if (result.length == 0) {
-      throw new Error(
-        "No existe registro con los parametros de búsqueda ingresados.",
-      );
-    }
+    const result = await reservaModel.search(numericFilters);
     return result;
   }
 
