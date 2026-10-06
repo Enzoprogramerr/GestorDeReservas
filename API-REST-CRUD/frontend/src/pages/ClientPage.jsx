@@ -84,9 +84,7 @@ export function ClientPage() {
         <ClientGetById onClose={() => setMostrarBusqueda(false)} />
       )}
 
-      {editarCliente && (
-        <ClientPut onClose={() => setEditarCliente(false)} cliente={""} />
-      )}
+      {editarCliente && <ClientPut onClose={() => setEditarCliente(false)} />}
 
       {eliminarCliente && (
         <ClientDelete onClose={() => setEliminarCliente(false)} />
