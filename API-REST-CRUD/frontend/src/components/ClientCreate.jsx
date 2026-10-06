@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClientes } from "../services/clienteServices";
 import { ResponseCard } from "./ResponseCard";
+import { ErrorCard } from "./ErrorCard";
 
 export function ClientCreate({ onClose }) {
   // crear objeto estado para setearlo con los valores del form que envia el usuario.
@@ -8,6 +9,12 @@ export function ClientCreate({ onClose }) {
 
   //estado del error para poder mostrarlo
   const [error, setError] = useState("");
+
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
 
   // funcion que se ejecuta al hacer click en elboton del form.
   const handleSubmit = async (e) => {
@@ -33,22 +40,54 @@ export function ClientCreate({ onClose }) {
 
   return (
     <>
-      <form className="post-form" onSubmit={handleSubmit}>
-        <input type="number" name="dni" placeholder="DNI" />
-        <input type="text" name="nombre" placeholder="Nombre" />
-        <input type="text" name="apellido" placeholder="Apellido" />
-        <input type="number" name="telefono" placeholder="Telefono" />
-        <button type="submit">Guardar</button>
-        <button type="button" onClick={onClose}>
-          x
-        </button>
-      </form>
+      <div className="modal-overlay">
+        <div className={`edit-client-modal ${visible ? "open" : ""}`}>
+          {clienteCreado ? (
+            <ResponseCard
+              titulo={clienteCreado}
+              onClose={onClose}
+            ></ResponseCard>
+          ) : error ? (
+            <ErrorCard
+              close={onClose}
+              message={error}
+              title={"Cliente creado con éxito"}
+            />
+          ) : (
+            <form className="edit-client-form" onSubmit={handleSubmit}>
+              <h3>Crear cliente</h3>
+              <div className="form-field">
+                <label>DNI</label>
+                <input type="number" name="dni" placeholder="DNI" />
+              </div>
 
-      {clienteCreado && (
-        <ResponseCard titulo={clienteCreado} onClose={onClose}></ResponseCard>
-      )}
+              <div className="form-field">
+                <label>Nombre</label>
+                <input type="text" name="nombre" placeholder="Nombre" />
+              </div>
 
-      {error && <p>{error}</p>}
+              <div className="form-field">
+                <label>Apellido</label>
+                <input type="text" name="apellido" placeholder="Apellido" />
+              </div>
+
+              <div className="form-field">
+                <label>Telefono</label>
+                <input type="number" name="telefono" placeholder="Teléfono" />
+              </div>
+
+              <div className="edit-client-actions">
+                <button type="button" className="btn-cancel" onClick={onClose}>
+                  Cancelar
+                </button>
+                <button type="submit" className="btn-save">
+                  Guardar
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
     </>
   );
 }

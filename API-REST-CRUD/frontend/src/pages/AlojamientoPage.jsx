@@ -4,89 +4,92 @@ import { AlojGetByType } from "../components/AlojGetByType";
 import { AlojCreate } from "../components/AlojCreate";
 import { AlojUpdate } from "../components/AlojUpdate";
 import { AlojDelete } from "../components/AlojDelete";
+import { SectionAction } from "../components/SectionActions";
+import { useNavigate } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
+import {
+  faHouse,
+  faPlus,
+  faMagnifyingGlass,
+  faPenToSquare,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 export function AlojamientoPage() {
-  const [mostrarAloj, setMostrarAloj] = useState(false);
   const [mostrarBusqueda, setMostrarBusqueda] = useState(false);
   const [crearAlojamiento, setCrearAlojamiento] = useState(false);
   const [updateAlojamiento, setUpdateAlojamiento] = useState(false);
   const [deleteAlojamiento, setDeleteAlojamiento] = useState(false);
 
+  const navigate = useNavigate();
+
   return (
     <>
-      <button
-        onClick={() => {
-          setMostrarAloj(true);
-        }}
-      >
-        Mostrar alojamientos
-      </button>
-      {mostrarAloj && (
-        <AlojGet
-          onClose={() => {
-            setMostrarAloj(false);
+      <section className="quick-actions">
+        <SectionAction
+          OpenClose={() => {
+            navigate("/alojamiento/todos");
           }}
+          icons={faHouse}
+          title={"Ver alojamientos"}
+          subtitle={"Consultar todos los alojamientos"}
         />
-      )}
 
-      <button
-        onClick={() => {
-          setMostrarBusqueda(true);
-        }}
-      >
-        Buscar alojamiento por tipo
-      </button>
+        <SectionAction
+          OpenClose={() => {
+            setMostrarBusqueda(true);
+          }}
+          icons={faMagnifyingGlass}
+          title={"Buscar alojamiento"}
+          subtitle={"Buscar alojamiento por tipo"}
+        />
+
+        <SectionAction
+          OpenClose={() => {
+            setCrearAlojamiento(true);
+          }}
+          icons={faPlus}
+          title={"Nuevo alojamiento"}
+          subtitle={"Registrar nuevo alojamiento"}
+        />
+
+        <SectionAction
+          OpenClose={() => {
+            setUpdateAlojamiento(true);
+          }}
+          icons={faPenToSquare}
+          title={"Editar alojamiento"}
+          subtitle={"Modificar datos de un alojamiento"}
+        />
+
+        <SectionAction
+          OpenClose={() => {
+            setDeleteAlojamiento(true);
+          }}
+          icons={faTrash}
+          title={"Eliminar un alojamiento"}
+          subtitle={"Eliminar un alojamiento registrado"}
+        />
+      </section>
+
+      <Navbar />
+
+      {/*  {mostrarAloj && <AlojGet onClose={() => setMostrarAloj(false)} />} */}
+
       {mostrarBusqueda && (
-        <AlojGetByType
-          onClose={() => {
-            setMostrarBusqueda(false);
-          }}
-        />
+        <AlojGetByType onClose={() => setMostrarBusqueda(false)} />
       )}
 
-      <button
-        onClick={() => {
-          setCrearAlojamiento(true);
-        }}
-      >
-        Crear nuevo alojamiento
-      </button>
       {crearAlojamiento && (
-        <AlojCreate
-          onClose={() => {
-            setCrearAlojamiento(false);
-          }}
-        />
+        <AlojCreate onClose={() => setCrearAlojamiento(false)} />
       )}
 
-      <button
-        onClick={() => {
-          setUpdateAlojamiento(true);
-        }}
-      >
-        Actualizar un alojamiento
-      </button>
       {updateAlojamiento && (
-        <AlojUpdate
-          onClose={() => {
-            setUpdateAlojamiento(false);
-          }}
-        ></AlojUpdate>
+        <AlojUpdate onClose={() => setUpdateAlojamiento(false)} />
       )}
 
-      <button
-        onClick={() => {
-          setDeleteAlojamiento(true);
-        }}
-      >
-        Eliminar alojamiento
-      </button>
       {deleteAlojamiento && (
-        <AlojDelete
-          onClose={() => {
-            setDeleteAlojamiento(false);
-          }}
-        />
+        <AlojDelete onClose={() => setDeleteAlojamiento(false)} />
       )}
     </>
   );

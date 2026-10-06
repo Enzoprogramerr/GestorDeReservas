@@ -45,12 +45,19 @@ class ClienteService {
     return result;
   }
 
-  static async put(dni, data) {
-    const { nombre, apellido, telefono } = data;
+  static async put(dniActual, data) {
+    const { nuevoDni, nombre, apellido, telefono } = data;
     if (!nombre || !apellido) {
       throw new Error("Debe ingresar nombre y apellido.");
     }
-    const result = await clienteModel.put(dni, nombre, apellido, telefono);
+    const dniActualNumber = Number(dniActual);
+    const result = await clienteModel.put(
+      dniActualNumber,
+      nuevoDni,
+      nombre,
+      apellido,
+      telefono,
+    );
     if (result === null) {
       throw new Error("Ese dni no se encuentra registrado.");
     }
@@ -62,11 +69,20 @@ class ClienteService {
     if (!Number.isInteger(dniNumber) || dniNumber <= 0) {
       throw new Error("Debe ingresar carácter numérico mayor a cero.");
     }
-    const result = await clienteModel.remove(dniNumber);
-    if (result.affectedRows === 0) {
-      throw new Error("No existe un cliente con ese id.");
+    try {
+      const result = await clienteModel.remove(dniNumber);
+      if (result.affectedRows === 0) {
+        throw new Error("No existe un cliente con ese id.");
+      }
+      return "Cliente eliminado correctamente.";
+    } catch (error) {
+      if (error.code === "ER_ROW_IS_REFERENCED_2") {
+        throw new Error(
+          "No se puede eliminar un cliente que ya exista en una reserva.",
+        );
+      }
+      throw error;
     }
-    return "Cliente eliminado correctamente.";
   }
 }
 module.exports = ClienteService;

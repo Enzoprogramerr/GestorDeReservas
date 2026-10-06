@@ -1,7 +1,7 @@
 const url = "http://localhost:3000/reserva";
 
-export async function getAll() {
-  const response = await fetch(url);
+export async function get(params = "") {
+  const response = await fetch(params ? `${url}?${params}` : url);
   const data = await response.json();
   if (!response.ok) {
     throw new Error(data.error);
@@ -9,8 +9,17 @@ export async function getAll() {
   return data;
 }
 
+/* export async function getAll() {
+  const response = await fetch(url);
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error);
+  }
+  return data;
+} */
+
 export async function getByDni(dniCliente) {
-  const response = await fetch(`${url}?cliente_dni=${dniCliente}`);
+  const response = await fetch(`${url}/${dniCliente}`);
   const data = await response.json();
   if (!response.ok) {
     throw new Error(data.error);
@@ -49,9 +58,8 @@ export async function create(reserva) {
   return data;
 }
 
-export async function update(reserva) {
-  const { id } = reserva;
-  const response = await fetch(`${url}/${id}`, {
+export async function update(idAEditar, reserva) {
+  const response = await fetch(`${url}/${idAEditar}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(reserva),

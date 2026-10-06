@@ -1,14 +1,16 @@
-import { data } from "react-router-dom";
-
 const url = "http://localhost:3000/alojamiento";
 
 export async function getAll() {
-  const response = await fetch(url);
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.error);
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+    return data;
+  } catch (error) {
+    throw new Error("Falló la conexión al servidor.");
   }
-  return data;
 }
 
 export async function getByType(tipo) {
@@ -33,9 +35,8 @@ export async function create(alojamiento) {
   return data;
 }
 
-export async function update(alojamiento) {
-  const { id } = alojamiento;
-  const response = await fetch(`${url}/${id}`, {
+export async function update(idAEditar, alojamiento) {
+  const response = await fetch(`${url}/${idAEditar}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(alojamiento),

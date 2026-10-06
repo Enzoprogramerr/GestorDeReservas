@@ -17,14 +17,20 @@ class ClienteModel {
     const [result] = await db.query(query, [dni]);
     return result[0];
   }
-  static async put(dni, nombre, apellido, telefono) {
-    const query = `update cliente set nombre = ?, apellido =  ?, telefono = ? 
+  static async put(dniActualNumber, nuevoDni, nombre, apellido, telefono) {
+    const query = `update cliente set dni = ?, nombre = ?, apellido =  ?, telefono = ? 
       WHERE dni = ?`;
-    const [result] = await db.query(query, [nombre, apellido, telefono, dni]);
+    const [result] = await db.query(query, [
+      nuevoDni,
+      nombre,
+      apellido,
+      telefono,
+      dniActualNumber,
+    ]);
     if (result.affectedRows === 0) {
       return null;
     }
-    return await this.getById(dni);
+    return await this.getById(nuevoDni);
   }
   static async remove(dni) {
     const query = `DELETE FROM cliente WHERE dni = ?`;

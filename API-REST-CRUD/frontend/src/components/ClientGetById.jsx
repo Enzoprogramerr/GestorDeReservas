@@ -6,7 +6,11 @@ import { ResponseCardClient } from "./ResponseCardClient";
 export function ClientGetById({ onClose }) {
   const [cliente, setCliente] = useState(null);
   const [error, setError] = useState("");
-  const [close, setClose] = useState(true);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,13 +28,25 @@ export function ClientGetById({ onClose }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="id" placeholder="Ingrese dni" />
-        <button type="submit">Buscar</button>
-        <button type="button" onClick={onClose}>
-          x
-        </button>
-      </form>
+      <div className="modal-overlay">
+        <div className={`edit-client-modal ${visible ? "open" : ""}`}>
+          <form className="edit-client-form" onSubmit={handleSubmit}>
+            <h3>Buscar cliente</h3>
+            <div className="form-field">
+              <label>DNI</label>
+              <input type="text" name="id" placeholder="Ingrese DNI" />
+            </div>
+            <div className="edit-client-actions">
+              <button type="button" className="btn-cancel" onClick={onClose}>
+                Cancelar
+              </button>
+              <button type="submit" className="btn-save">
+                Buscar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
 
       {error && <p>{error}</p>}
       {cliente && (

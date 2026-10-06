@@ -32,47 +32,53 @@ class ReservaModel {
     return rows.length > 0;
   }
 
-  static async create(data) {
+  static async create(data, precioTotal) {
     const query = `
         INSERT INTO reserva
-        (alojamiento_id, fecha_inicio, fecha_fin, cliente_dni)
-        VALUES (?,?,?,?)`;
+        (alojamiento_id, fecha_inicio, fecha_fin, cliente_dni, precio_total)
+        VALUES (?,?,?,?,?)`;
     // Se envían los valores al SQL.
     const [result] = await db.query(query, [
       data.alojamientoId,
       data.fechaInicio,
       data.fechaFin,
       data.dniCliente,
+      precioTotal,
     ]);
 
     return {
       id: result.insertId, //id generado por sql.
       ...data, // Es "spread operator" significa: copiar todas las propiedads de reserva .
+      precioTotal,
     };
   }
 
   static async search(filtros = {}) {
-    let query = `SELECT *
-                    FROM reserva
-                    WHERE 1 = 1`;
+    let query = `SELECT
+  reserva.id,
+  reserva.cliente_dni,
+  reserva.fecha_inicio,
+  reserva.fecha_fin,
+  reserva.precio_total,
+  alojamiento.tipo
+FROM reserva
+JOIN alojamiento
+  ON reserva.alojamiento_id = alojamiento.id
+WHERE 1 = 1`;
 
     let params = [];
 
-    if (filtros.dniNumber) {
+    if (filtros.cliente_dni) {
       query += ` AND cliente_dni = ?`;
-      params.push(filtros.dniNumber);
+      params.push(filtros.cliente_dni);
     }
-    if (filtros.idAlojNumber) {
+    if (filtros.alojamiento_id) {
       query += ` AND alojamiento_id = ?`;
-      params.push(filtros.idAlojNumber);
+      params.push(filtros.alojamiento_id);
     }
-    if (filtros.mesNumber && filtros.anioNumber) {
-      const inicioMes = new Date(filtros.anioNumber, filtros.mesNumber - 1, 1);
-      const inicioMesSiguiente = new Date(
-        filtros.anioNumber,
-        filtros.mesNumber,
-        1,
-      );
+    if (filtros.mes && filtros.anio) {
+      const inicioMes = new Date(filtros.anio, filtros.mes - 1, 1);
+      const inicioMesSiguiente = new Date(filtros.anio, filtros.mes, 1);
       const formatDate = (date) =>
         date.toISOString().slice(0, 19).replace("T", " ");
       query += ` AND NOT (
@@ -88,7 +94,17 @@ class ReservaModel {
 
   static async getById(id) {
     const query = `
-    SELECT  * FROM reserva WHERE id=?`;
+    SELECT 
+      reserva.id,
+      reserva.cliente_dni,
+      reserva.fecha_inicio,
+      reserva.fecha_fin,
+      reserva.precio_total,
+      alojamiento.tipo
+    FROM reserva
+    JOIN alojamiento
+      ON reserva.alojamiento_id = alojamiento.id
+    WHERE reserva.id = ?`;
     const [result] = await db.query(query, [id]);
     return result[0];
   }
@@ -124,7 +140,7 @@ class ReservaModel {
       nuevaReserva.alojamientoId,
       nuevaReserva.fechaInicio,
       nuevaReserva.fechaFin,
-      nuevaReserva.id,
+      id,
     ]);
     if (result.affectedRows === 0) {
       return null;

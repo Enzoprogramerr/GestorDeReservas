@@ -1,32 +1,23 @@
 import { Routes, Route } from "react-router-dom";
+import { Dashboard } from "./pages/Dashboard";
 import { ClientPage } from "./pages/ClientPage";
 import { ReservePage } from "./pages/ReservePage";
 import { AlojamientoPage } from "./pages/AlojamientoPage";
-import { NavLink } from "react-router-dom";
-import "./App.css";
+import { AllReservation } from "./components/ReservasAll";
+import { ShowClient } from "./components/ClientGet";
+import { AlojGet } from "./components/AlojGet";
+
 function App() {
   return (
     <>
-      <header className="header">
-        <h1>Gestor de Reservas</h1>
-        <img
-          className="Logo-sistema"
-          src="../public/logo.png"
-          alt="Logo del sistema"
-        />
-      </header>
-      <nav className="navbar">
-        <div className="navbar-links">
-          <NavLink to="/cliente">Clientes</NavLink>
-          <NavLink to="/reserva">Reservas</NavLink>
-          <NavLink to="/alojamiento">Alojamientos</NavLink>
-        </div>
-      </nav>
-
       <Routes>
+        <Route path="/" element={<Dashboard />} />
         <Route path="/cliente" element={<ClientPage />} />
         <Route path="/reserva" element={<ReservePage />} />
         <Route path="/alojamiento" element={<AlojamientoPage />} />
+        <Route path="/reserva/todas" element={<AllReservation />} />
+        <Route path="/cliente/todos" element={<ShowClient />} />
+        <Route path="/alojamiento/todos" element={<AlojGet />} />
       </Routes>
     </>
   );

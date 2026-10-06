@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { getByType } from "../services/alojamientoServices";
-import { ResponseCard } from "./ResponseCard";
+import { ErrorCard } from "./ErrorCard";
 import { ResponseCardAlojamiento } from "./ResponseCardAloj";
+import { useEffect } from "react";
 
 export function AlojGetByType({ onClose }) {
   const [alojamiento, setAlojamiento] = useState(null);
   const [error, setError] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,21 +27,43 @@ export function AlojGetByType({ onClose }) {
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="tipo" placeholder="Tipo de alojamiento" />
-        <button type="submit">Buscar</button>
-        <button type="button" onClick={onClose}>
-          x
-        </button>
-      </form>
-      {error && <p>{error}</p>}
-      {alojamiento && (
-        <ResponseCardAlojamiento
-          alojamiento={alojamiento}
-          titulo={"Alojamiento encontrado con éxito"}
-          onClose={onClose}
-        />
-      )}
+      <div className="modal-overlay">
+        <div className={`edit-client-modal ${visible ? "open" : ""}`}>
+          {alojamiento ? (
+            <ResponseCardAlojamiento
+              alojamiento={alojamiento}
+              titulo={"Alojamiento encontrado"}
+              onClose={onClose}
+            />
+          ) : error ? (
+            <ErrorCard
+              title={"Error al eliminar"}
+              message={error}
+              close={onClose}
+            />
+          ) : (
+            <form className="edit-client-form" onSubmit={handleSubmit}>
+              <h3>Buscar alojamiento</h3>
+              <div className="form-field">
+                <label>Tipo de alojamiento</label>
+                <input
+                  type="text"
+                  name="tipo"
+                  placeholder="Tipo de alojamiento"
+                />
+              </div>
+              <div className="edit-client-actions">
+                <button type="button" className="btn-cancel" onClick={onClose}>
+                  Cancelar
+                </button>
+                <button type="submit" className="btn-save">
+                  Buscar
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
     </>
   );
 }

@@ -40,20 +40,16 @@ export async function getByIdClientes(id) {
   return data;
 }
 
-export async function updateClientes(cliente) {
-  const { dni } = cliente;
-  //enviar dni por url
-  const response = await fetch(`${API_URL}/${dni}`, {
+export async function updateClientes(dniActual, cliente) {
+  const response = await fetch(`${API_URL}/${dniActual}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(cliente),
   });
-  //cuerpo del objeto cliente a editar
   const data = await response.json();
   if (!response.ok) {
     throw new Error(data.error);
   }
-  //en caso de error capturarlo con throw
   return data;
 }
 
