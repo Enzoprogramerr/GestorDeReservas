@@ -7,7 +7,7 @@ export function ClientPut({ onClose, cliente }) {
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const dniActual = cliente.dni;
+  let dniActual = cliente?.dni;
 
   useEffect(() => {
     setVisible(true);
@@ -16,8 +16,10 @@ export function ClientPut({ onClose, cliente }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    if (!dniActual) {
+      dniActual = Number(formData.get("dni"));
+    }
     const nuevoCliente = {
-      nuevoDni: Number(formData.get("dni")),
       nombre: formData.get("nombre"),
       apellido: formData.get("apellido"),
       telefono: Number(formData.get("telefono")),
