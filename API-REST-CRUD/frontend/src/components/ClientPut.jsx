@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { updateClientes } from "../services/clienteServices";
 import { ResponseCardClient } from "./ResponseCardClient";
+import { ErrorCard } from "./ErrorCard";
 
 export function ClientPut({ onClose, cliente }) {
   const [clienteEditado, setClienteEditado] = useState(null);
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
 
-  let dniActual = cliente?.dni;
+  let dniCliente = cliente?.dni;
 
   useEffect(() => {
     setVisible(true);
@@ -16,16 +17,17 @@ export function ClientPut({ onClose, cliente }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    if (!dniActual) {
-      dniActual = Number(formData.get("dni"));
+    if (!dniCliente) {
+      dniCliente = Number(formData.get("dniCliente"));
     }
     const nuevoCliente = {
+      nuevoDni: Number(formData.get("nuevoDni")),
       nombre: formData.get("nombre"),
       apellido: formData.get("apellido"),
       telefono: Number(formData.get("telefono")),
     };
     try {
-      const response = await updateClientes(dniActual, nuevoCliente);
+      const response = await updateClientes(dniCliente, nuevoCliente);
       setClienteEditado(response);
       setError("");
     } catch (error) {
@@ -51,9 +53,19 @@ export function ClientPut({ onClose, cliente }) {
           ) : (
             <form className="edit-client-form" onSubmit={handleSubmit}>
               <h3>Editar cliente</h3>
+              {!cliente && (
+                <div className="form-field">
+                  <label>DNI del cliente</label>
+                  <input
+                    type="number"
+                    name="dniCliente"
+                    placeholder="DNI del cliente"
+                  />
+                </div>
+              )}
               <div className="form-field">
-                <label>DNI</label>
-                <input type="number" name="dni" placeholder="DNI" />
+                <label>Nuevo DNI</label>
+                <input type="number" name="nuevoDni" placeholder="Nuevo DNI" />
               </div>
 
               <div className="form-field">

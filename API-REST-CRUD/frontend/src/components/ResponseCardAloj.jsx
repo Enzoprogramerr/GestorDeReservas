@@ -1,3 +1,7 @@
+import { formaterPrice } from "../utils/formaterPrice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+
 export function ResponseCardAlojamiento({ alojamiento, titulo, onClose }) {
   return (
     <>
@@ -5,7 +9,10 @@ export function ResponseCardAlojamiento({ alojamiento, titulo, onClose }) {
         <button className="btn-close" onClick={onClose}>
           <img className="close-bt" src="/borrar.png" alt="cerrar ventana" />
         </button>
-        <p className="response-title">{titulo}</p>
+        <div className="content-title">
+          <FontAwesomeIcon className="check" icon={faCircleCheck} />
+          <p className="response-title">{titulo}</p>
+        </div>
         <div className="alojamiento-item">
           <p>
             <strong>Id</strong>
@@ -24,7 +31,7 @@ export function ResponseCardAlojamiento({ alojamiento, titulo, onClose }) {
 
           <p>
             <strong>Precio</strong>
-            <span>${alojamiento.precio}</span>
+            <span>{`${formaterPrice(alojamiento.precio)}`}</span>
           </p>
         </div>
       </div>

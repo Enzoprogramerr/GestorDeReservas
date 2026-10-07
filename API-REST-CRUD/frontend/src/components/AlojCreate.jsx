@@ -69,7 +69,7 @@ export function AlojCreate({ onClose }) {
             />
           ) : (
             <form className="edit-client-form" onSubmit={handleSubmit}>
-              <h3>Buscar alojamiento</h3>
+              <h3>Crear nuevo alojamiento</h3>
               <div className="form-field">
                 <label>Tipo de alojamiento</label>
                 <input type="text" name="tipo" placeholder="Tipo" />
@@ -87,7 +87,7 @@ export function AlojCreate({ onClose }) {
                   Cancelar
                 </button>
                 <button type="submit" className="btn-save">
-                  Eliminar
+                  Crear
                 </button>
               </div>
             </form>

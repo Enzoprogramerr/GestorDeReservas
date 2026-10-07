@@ -3,6 +3,7 @@ import { getByType } from "../services/alojamientoServices";
 import { ErrorCard } from "./ErrorCard";
 import { ResponseCardAlojamiento } from "./ResponseCardAloj";
 import { useEffect } from "react";
+import { formaterPrice } from "../utils/formaterPrice";
 
 export function AlojGetByType({ onClose }) {
   const [alojamiento, setAlojamiento] = useState(null);

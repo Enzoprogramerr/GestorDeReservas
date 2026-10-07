@@ -17,7 +17,7 @@ class ClienteModel {
     const [result] = await db.query(query, [dni]);
     return result[0];
   }
-  static async put(dniActualNumber, nuevoDni, nombre, apellido, telefono) {
+  static async put(dniClienteNumber, nuevoDni, nombre, apellido, telefono) {
     const query = `update cliente set dni = ?, nombre = ?, apellido =  ?, telefono = ? 
       WHERE dni = ?`;
     const [result] = await db.query(query, [
@@ -25,7 +25,7 @@ class ClienteModel {
       nombre,
       apellido,
       telefono,
-      dniActualNumber,
+      dniClienteNumber,
     ]);
     if (result.affectedRows === 0) {
       return null;

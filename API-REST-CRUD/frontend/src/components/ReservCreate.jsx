@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { create } from "../services/reservaService";
 import { ResponseCard } from "./ResponseCard";
 import { ErrorCard } from "./ErrorCard";
+import { formaterPrice } from "../utils/formaterPrice";
 
 export function ReservaCreate({ onClose }) {
   const [reserva, setNuevaReserva] = useState(null);
@@ -64,7 +65,7 @@ export function ReservaCreate({ onClose }) {
                 </p>
                 <p>
                   <strong>Precio total </strong>
-                  <span>{reserva.precioTotal}</span>
+                  <span>{`${formaterPrice(reserva.precioTotal)}`}</span>
                 </p>
               </div>
             </ResponseCard>

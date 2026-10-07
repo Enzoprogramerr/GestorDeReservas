@@ -33,9 +33,9 @@ class ClienteController {
 
   static async update(req, res) {
     try {
-      const { dniActual } = req.params;
+      const { dniCliente } = req.params;
       const data = req.body;
-      const nuevoCliente = await clienteService.put(dniActual, data);
+      const nuevoCliente = await clienteService.put(dniCliente, data);
       res.status(201).json(nuevoCliente);
     } catch (error) {
       res.status(400).json({ error: error.message });

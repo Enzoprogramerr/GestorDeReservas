@@ -45,14 +45,14 @@ class ClienteService {
     return result;
   }
 
-  static async put(dniActual, data) {
+  static async put(dniCliente, data) {
     const { nuevoDni, nombre, apellido, telefono } = data;
     if (!nombre || !apellido) {
       throw new Error("Debe ingresar nombre y apellido.");
     }
-    const dniActualNumber = Number(dniActual);
+    const dniClienteNumber = Number(dniCliente);
     const result = await clienteModel.put(
-      dniActualNumber,
+      dniClienteNumber,
       nuevoDni,
       nombre,
       apellido,

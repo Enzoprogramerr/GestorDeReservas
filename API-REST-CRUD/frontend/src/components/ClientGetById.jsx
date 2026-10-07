@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getByIdClientes } from "../services/clienteServices";
 import { ResponseCard } from "./ResponseCard";
 import { ResponseCardClient } from "./ResponseCardClient";
+import { ErrorCard } from "./ErrorCard";
 
 export function ClientGetById({ onClose }) {
   const [cliente, setCliente] = useState(null);
@@ -30,32 +31,37 @@ export function ClientGetById({ onClose }) {
     <>
       <div className="modal-overlay">
         <div className={`edit-client-modal ${visible ? "open" : ""}`}>
-          <form className="edit-client-form" onSubmit={handleSubmit}>
-            <h3>Buscar cliente</h3>
-            <div className="form-field">
-              <label>DNI</label>
-              <input type="text" name="id" placeholder="Ingrese DNI" />
-            </div>
-            <div className="edit-client-actions">
-              <button type="button" className="btn-cancel" onClick={onClose}>
-                Cancelar
-              </button>
-              <button type="submit" className="btn-save">
-                Buscar
-              </button>
-            </div>
-          </form>
+          {cliente ? (
+            <ResponseCardClient
+              cliente={cliente}
+              titulo={"Cliente encontrado con éxito"}
+              onClose={onClose}
+            />
+          ) : error ? (
+            <ErrorCard
+              close={onClose}
+              message={error}
+              title={"Cliente no encontrado"}
+            />
+          ) : (
+            <form className="edit-client-form" onSubmit={handleSubmit}>
+              <h3>Buscar cliente</h3>
+              <div className="form-field">
+                <label>DNI</label>
+                <input type="text" name="id" placeholder="Ingrese DNI" />
+              </div>
+              <div className="edit-client-actions">
+                <button type="button" className="btn-cancel" onClick={onClose}>
+                  Cancelar
+                </button>
+                <button type="submit" className="btn-save">
+                  Buscar
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </div>
-
-      {error && <p>{error}</p>}
-      {cliente && (
-        <ResponseCardClient
-          cliente={cliente}
-          titulo={"Cliente encontrado con éxito"}
-          onClose={onClose}
-        />
-      )}
     </>
   );
 }

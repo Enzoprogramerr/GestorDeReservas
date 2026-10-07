@@ -78,12 +78,18 @@ export function ReservePage() {
           onClose={() => {
             setUpdateReserva(false);
           }}
+          onUpdate={() => {
+            setUpdateReserva(false);
+          }}
         />
       )}
 
       {deleteReserva && (
         <ReserveDelete
           onClose={() => {
+            setDeleteReserva(false);
+          }}
+          onUpdate={() => {
             setDeleteReserva(false);
           }}
         />
