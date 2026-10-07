@@ -125,14 +125,15 @@ WHERE 1 = 1`;
     return rows;
   }
 
-  static async update(id, nuevaReserva) {
+  static async update(id, precioTotal, nuevaReserva) {
     const query = `
     UPDATE reserva
     SET 
     cliente_dni = ?,
     alojamiento_id = ?,
     fecha_inicio = ?,
-    fecha_fin = ?
+    fecha_fin = ?,
+    precio_total = ?
     WHERE id = ?;
     `;
     const [result] = await db.query(query, [
@@ -140,6 +141,7 @@ WHERE 1 = 1`;
       nuevaReserva.alojamientoId,
       nuevaReserva.fechaInicio,
       nuevaReserva.fechaFin,
+      precioTotal,
       id,
     ]);
     if (result.affectedRows === 0) {

@@ -117,8 +117,19 @@ class ReservaService {
       if (conflicto) {
         throw new Error("Ya existe una reserva en las fechas indicadas.");
       }
+      const alojamiento = await alojamientoModel.getById(alojamientoId);
+      const precioAlojamiento = alojamiento.precio;
+      const fechaInicioDate = new Date(fechaInicio);
+      const fechaFinDate = new Date(fechaFin);
+      const cantidadNoches =
+        (fechaFinDate - fechaInicioDate) / (1000 * 60 * 60 * 24);
+      const precioTotal = precioAlojamiento * cantidadNoches;
 
-      const nuevaReserva = await reservaModel.update(idNumber, reserva);
+      const nuevaReserva = await reservaModel.update(
+        idNumber,
+        precioTotal,
+        reserva,
+      );
       if (nuevaReserva === null) {
         throw new Error("El Id de la reserva no está registrada.");
       }
