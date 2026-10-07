@@ -33,6 +33,10 @@ class ClienteService {
     }
   }
 
+  static async count() {
+    return await clienteModel.count();
+  }
+
   static async getAll() {
     return await clienteModel.getAll();
   }

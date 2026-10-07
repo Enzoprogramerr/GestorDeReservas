@@ -18,6 +18,13 @@ export async function getClientes() {
     throw error;
   }
 }
+
+export async function ClientesCount() {
+  const response = await fetch(`${API_URL}/count`);
+  const data = await response.json();
+  return data;
+}
+
 export async function createClientes(nuevoCliente) {
   const response = await fetch(API_URL, {
     method: "POST",

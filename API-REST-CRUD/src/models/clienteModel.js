@@ -6,6 +6,13 @@ class ClienteModel {
     const [result] = await db.query(query, [dni, nombre, apellido, telefono]);
     return result;
   }
+
+  static async count() {
+    const query = `SELECT COUNT(*) AS total from cliente`;
+    const [result] = await db.query(query);
+    return result[0].total;
+  }
+
   static async getAll() {
     const query = `SELECT * FROM cliente`;
     const [result] = await db.query(query, []);

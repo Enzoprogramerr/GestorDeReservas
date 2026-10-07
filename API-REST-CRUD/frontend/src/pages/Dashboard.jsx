@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import "../App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ClientesCount } from "../services/clienteServices";
+import { useEffect, useState } from "react";
 import {
   faBed,
   faBell,
@@ -17,6 +19,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export function Dashboard() {
+  const [numClientes, setNumClientes] = useState(null);
+  const [error, setError] = useState("");
+
+  async function numClient() {
+    try {
+      const response = await ClientesCount();
+      setNumClientes(response);
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
+  useEffect(() => {
+    numClient();
+  }, []);
+
   return (
     <>
       <div className="dashboard-header">
@@ -45,7 +63,7 @@ export function Dashboard() {
         <div className="stat-card">
           <FontAwesomeIcon icon={faUsers} className="stat-icon-blue" />
 
-          <div className="stat-value">128</div>
+          <div className="stat-value">{numClientes}</div>
 
           <div className="stat-label">Clientes</div>
         </div>
