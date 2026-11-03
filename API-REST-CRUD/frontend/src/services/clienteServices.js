@@ -33,7 +33,12 @@ export async function createClientes(nuevoCliente) {
   });
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.error);
+    if (Array.isArray(data.error)) {
+      const message = data.error.map((e) => e.msg).join("\n");
+      throw new Error(message);
+    } else {
+      throw new Error(data.error);
+    }
   }
   return data;
 }

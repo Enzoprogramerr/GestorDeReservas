@@ -51,7 +51,7 @@ export function ClientCreate({ onClose }) {
             <ErrorCard
               close={onClose}
               message={error}
-              title={"Cliente creado con éxito"}
+              title={"Error al crear cliente"}
             />
           ) : (
             <form className="edit-client-form" onSubmit={handleSubmit}>
