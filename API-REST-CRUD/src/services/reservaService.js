@@ -1,9 +1,10 @@
 const reservaModel = require("../models/reservaModel");
 const alojamientoModel = require("../models/alojamientoModel");
+const clienteModel = require("../models/clienteModel");
 
 class ReservaService {
   static async create(data) {
-    const { alojamientoId, fechaInicio, fechaFin } = data;
+    const { dniCliente, alojamientoId, fechaInicio, fechaFin } = data;
 
     if (fechaInicio >= fechaFin) {
       throw new Error("La fecha de inicio debe ser menor a la fecha fin");
@@ -17,8 +18,15 @@ class ReservaService {
     if (conflicto) {
       throw new Error("Ya existe una reserva en esas fechas");
     }
+    const isClient = await clienteModel.getById(dniCliente);
+    if (isClient == undefined) {
+      throw new Error("No existe id de cliente.");
+    }
+    const alojamiento = await alojamientoModel.getById(alojamientoId);
+    if (alojamiento == undefined) {
+      throw new Error("No existe un alojamiento con ese id.");
+    }
     try {
-      const alojamiento = await alojamientoModel.getById(alojamientoId);
       const precioAlojamiento = alojamiento.precio;
       const fechaInicioDate = new Date(fechaInicio);
       const fechaFinDate = new Date(fechaFin);

@@ -23,10 +23,6 @@ class ReservaModel {
       query += ` AND id != ?`;
       params.push(id);
     }
-    console.log("alojamientoId:", alojamientoId);
-    console.log("fechaInicio:", fechaInicio);
-    console.log("fechaFin:", fechaFin);
-    console.log("params:", params);
     const [rows] = await db.query(query, params);
 
     return rows.length > 0;

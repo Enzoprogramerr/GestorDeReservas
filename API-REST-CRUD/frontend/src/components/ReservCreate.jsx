@@ -73,12 +73,12 @@ export function ReservaCreate({ onClose }) {
             <ErrorCard
               close={onClose}
               message={error}
-              title={"Reserva creada con éxito"}
+              title={"Error al crear la reserva"}
             />
           ) : (
             <form className="edit-client-form" onSubmit={handleSubmit}>
               <div className="form-field">
-                <label>Alojamiento</label>
+                <label>Alojamiento id</label>
                 <input
                   type="number"
                   name="alojamientoId"

@@ -53,6 +53,10 @@ export async function create(reserva) {
   });
   const data = await response.json();
   if (!response.ok) {
+    if (Array.isArray(data.error)) {
+      const message = data.error.map((e) => e.msg).join("\n");
+      throw new Error(message);
+    }
     throw new Error(data.error);
   }
   return data;
