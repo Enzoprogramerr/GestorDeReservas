@@ -50,7 +50,26 @@ class ClienteService {
   }
 
   static async put(dniCliente, data) {
-    const { nuevoDni, nombre, apellido, telefono } = data;
+    const nuevoDni = data.nuevoDni === "" ? "" : Number(data.nuevoDni);
+    const isClient = await this.getById(dniCliente);
+    if (!isClient) {
+      throw new Error("Ese dni no se encuentra registrado.");
+    }
+
+    const camposPermitidos = ["nuevoDni", "nombre", "apellido", "telefono"];
+    const campos = Object.keys(data).filter(
+      (campo) => camposPermitidos.includes(campo) && data[campo] !== "",
+    );
+
+    const set = campos.map((valor) => `${valor} = ?`).join(", ");
+    const valores = campos.map((campo) => data[campo]);
+    const sql = `UPDATE cliente set ${set} WHERE dni = ?`;
+    const dniClienteNumber = Number(dniCliente);
+    const parametros = [...valores, dniClienteNumber];
+    const result = await clienteModel.put(sql, parametros);
+    return result;
+
+    /* const { nuevoDni, nombre, apellido, telefono } = data;
     if (!nombre || !apellido) {
       throw new Error("Debe ingresar nombre y apellido.");
     }
@@ -65,7 +84,7 @@ class ClienteService {
     if (result === null) {
       throw new Error("Ese dni no se encuentra registrado.");
     }
-    return result;
+    return result; */
   }
 
   static async remove(dni) {

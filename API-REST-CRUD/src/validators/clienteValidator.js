@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 
 const validarCliente = [
   body("dni")
@@ -31,4 +31,13 @@ const validarCliente = [
     .isLength({ min: 9, max: 13 })
     .withMessage("El telefono debe tener entre 9 y 13 caracteres."),
 ];
-module.exports = validarCliente;
+
+const validarEditCliente = [
+  param("dniCliente")
+    .notEmpty()
+    .withMessage("Debe ingresar DNI cliente.")
+    .bail()
+    .isInt()
+    .withMessage("El DNI debe contener solamente números enteros."),
+];
+module.exports = { validarCliente, validarEditCliente };

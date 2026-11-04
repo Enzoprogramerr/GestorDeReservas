@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { updateClientes } from "../services/clienteServices";
-import { ResponseCardClient } from "./ResponseCardClient";
+import { ResponseCard } from "./ResponseCard";
 import { ErrorCard } from "./ErrorCard";
 
 export function ClientPut({ onClose, cliente }) {
@@ -21,7 +21,7 @@ export function ClientPut({ onClose, cliente }) {
       dniCliente = Number(formData.get("dniCliente"));
     }
     const nuevoCliente = {
-      nuevoDni: Number(formData.get("nuevoDni")),
+      nuevoDni: formData.get("nuevoDni"),
       nombre: formData.get("nombre"),
       apellido: formData.get("apellido"),
       telefono: Number(formData.get("telefono")),
@@ -39,8 +39,7 @@ export function ClientPut({ onClose, cliente }) {
       <div className="modal-overlay">
         <div className={`edit-client-modal ${visible ? "open" : ""}`}>
           {clienteEditado ? (
-            <ResponseCardClient
-              cliente={clienteEditado}
+            <ResponseCard
               titulo={"Cliente actualizado con éxito"}
               onClose={onClose}
             />

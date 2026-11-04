@@ -24,20 +24,12 @@ class ClienteModel {
     const [result] = await db.query(query, [dni]);
     return result[0];
   }
-  static async put(dniClienteNumber, nuevoDni, nombre, apellido, telefono) {
-    const query = `update cliente set dni = ?, nombre = ?, apellido =  ?, telefono = ? 
-      WHERE dni = ?`;
-    const [result] = await db.query(query, [
-      nuevoDni,
-      nombre,
-      apellido,
-      telefono,
-      dniClienteNumber,
-    ]);
+  static async put(sql, parametros) {
+    const [result] = await db.query(sql, parametros);
     if (result.affectedRows === 0) {
       return null;
     }
-    return await this.getById(nuevoDni);
+    return "Cliente editado exitosamente.";
   }
   static async remove(dni) {
     const query = `DELETE FROM cliente WHERE dni = ?`;
