@@ -74,7 +74,7 @@ export function AllReservation() {
           <>
             <div className="div-count">
               <h1 className="title-card">Lista de reservas</h1>
-              <p>{reservCounts} reservas</p>
+              <p>Totales: {reservCounts} reservas</p>
             </div>
 
             {reservas.map((r) => (
