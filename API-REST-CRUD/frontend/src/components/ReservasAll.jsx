@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { get } from "../services/reservaService";
+import { get, reservasCount } from "../services/reservaService";
 import { Card } from "../pages/Card";
 import { FormaterDate } from "../utils/formaterDate";
 import { ReservePut } from "./ReservPut";
@@ -17,6 +17,7 @@ export function AllReservation() {
   const [putReserva, setPutReserva] = useState(false);
   const [deleteReserva, setDeleteReserva] = useState(false);
   const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
+  const [reservCounts, setReservCounts] = useState(null);
 
   const navigate = useNavigate();
 
@@ -41,6 +42,8 @@ export function AllReservation() {
           params.append("anio", `${anio}`);
         }
         const response = await get(params);
+        const rCounts = await reservasCount();
+        setReservCounts(rCounts);
 
         setReservas(response);
         setError("");
@@ -68,26 +71,33 @@ export function AllReservation() {
     <>
       {reservas ? (
         reservas.length > 0 ? (
-          reservas.map((r) => (
-            <Card
-              key={r.id}
-              titulo={`Reserva Id: ${r.id}`}
-              lineaDos={r.tipo}
-              lineaTres={`DNI: ${r.cliente_dni}`}
-              lineaCuatro={`${FormaterDate(r.fecha_inicio)} – 
+          <>
+            <div className="div-count">
+              <h1 className="title-card">Lista de reservas</h1>
+              <p>{reservCounts} reservas</p>
+            </div>
+
+            {reservas.map((r) => (
+              <Card
+                key={r.id}
+                titulo={`Reserva Id: ${r.id}`}
+                lineaDos={r.tipo}
+                lineaTres={`DNI: ${r.cliente_dni}`}
+                lineaCuatro={`${FormaterDate(r.fecha_inicio)} – 
                               ${FormaterDate(r.fecha_fin)}`}
-              lineaCinco={`Precio total: ${formaterPrice(r.precio_total)}`}
-              state={"Próximo"}
-              onEdit={() => {
-                setPutReserva(true);
-                setReservaSeleccionada(r);
-              }}
-              onDelete={() => {
-                setDeleteReserva(true);
-                setReservaSeleccionada(r);
-              }}
-            />
-          ))
+                lineaCinco={`Precio total: ${formaterPrice(r.precio_total)}`}
+                state={"Próximo"}
+                onEdit={() => {
+                  setPutReserva(true);
+                  setReservaSeleccionada(r);
+                }}
+                onDelete={() => {
+                  setDeleteReserva(true);
+                  setReservaSeleccionada(r);
+                }}
+              />
+            ))}
+          </>
         ) : (
           <div className="empty-reserve">
             <p>No existen reservas para los parámetros ingresados</p>

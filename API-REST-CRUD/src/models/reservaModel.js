@@ -49,6 +49,12 @@ class ReservaModel {
     };
   }
 
+  static async count() {
+    const query = `SELECT COUNT(*) AS total from reserva`;
+    const [result] = await db.query(query);
+    return result[0].total;
+  }
+
   static async search(filtros = {}) {
     let query = `SELECT
   reserva.id,

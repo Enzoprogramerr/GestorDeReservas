@@ -9,6 +9,11 @@ export async function get(params = "") {
   return data;
 }
 
+export async function reservasCount() {
+  const response = await fetch(`${url}/countReserv`);
+  const data = await response.json();
+  return data;
+}
 /* export async function getAll() {
   const response = await fetch(url);
   const data = await response.json();

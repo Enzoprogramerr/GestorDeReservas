@@ -487,6 +487,17 @@ button {
   color: var(--background-color-secundary);
 }
 
+.div-count {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 2rem;
+}
+
+.div-count p {
+  color: var(--text--color-three);
+}
+
 .entity-card {
   width: 100%;
   display: flex;

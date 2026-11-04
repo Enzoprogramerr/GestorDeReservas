@@ -67,6 +67,10 @@ class ReservaService {
     }
   }
 
+  static async count() {
+    return await reservaModel.count();
+  }
+
   static async search(filtros = {}) {
     if (Object.keys(filtros).length === 0) {
       const result = await reservaModel.search();

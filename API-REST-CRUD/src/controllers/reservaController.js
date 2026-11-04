@@ -16,6 +16,16 @@ class ReservaController {
       res.status(400).json({ error: error.message });
     }
   }
+
+  static async count(req, res) {
+    try {
+      const num = await reservaService.count();
+      res.status(201).json(num);
+    } catch (error) {
+      res.status(404).json({ error: error.message });
+    }
+  }
+
   static async getAll(req, res) {
     try {
       const filtros = req.query; //Utilizo query porque voy a usar consultas dinamicas(filtros)
