@@ -24,7 +24,7 @@ export function ClientPut({ onClose, cliente }) {
       nuevoDni: formData.get("nuevoDni"),
       nombre: formData.get("nombre"),
       apellido: formData.get("apellido"),
-      telefono: Number(formData.get("telefono")),
+      telefono: formData.get("telefono"),
     };
     try {
       const response = await updateClientes(dniCliente, nuevoCliente);
@@ -79,7 +79,7 @@ export function ClientPut({ onClose, cliente }) {
 
               <div className="form-field">
                 <label>Telefono</label>
-                <input type="number" name="telefono" placeholder="Teléfono" />
+                <input type="text" name="telefono" placeholder="Teléfono" />
               </div>
 
               <div className="edit-client-actions">

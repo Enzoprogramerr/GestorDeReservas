@@ -4,8 +4,8 @@ const router = express.Router();
 const clienteController = require("../controllers/clienteController");
 const validarCampos = require("../middlewares/validarCampos");
 const {
-  validarEditCliente,
   validarCliente,
+  validarEditCliente,
 } = require("../validators/clienteValidator");
 
 router.post("/", validarCliente, validarCampos, clienteController.create);
