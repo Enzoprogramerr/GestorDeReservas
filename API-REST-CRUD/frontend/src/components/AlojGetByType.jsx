@@ -19,6 +19,11 @@ export function AlojGetByType({ onClose }) {
     const textForm = new FormData(e.target);
     const type = textForm.get("tipo");
     try {
+      if (type === "") {
+        throw new Error(
+          "Debes ingresar el tipo de alojamiento que deseas buscar.",
+        );
+      }
       const response = await getByType(type);
       setAlojamiento(response);
       setError("");
@@ -38,7 +43,7 @@ export function AlojGetByType({ onClose }) {
             />
           ) : error ? (
             <ErrorCard
-              title={"Error al eliminar"}
+              title={"Error al buscar"}
               message={error}
               close={onClose}
             />

@@ -18,6 +18,7 @@ class AlojamientoService {
     } else if (!precio || precio === 0) {
       throw new Error("Debe ingresar el dato 'precio' o su valor mayor a 0.");
     }
+    data.precio = Number(data.precio);
     return await alojamientoModel.create(alojamiento);
   }
 
@@ -43,14 +44,24 @@ class AlojamientoService {
 
   static async put(id, data) {
     const { tipo, capacidad, precio } = data;
-    if (!tipo) {
+    /* if (!tipo) {
       throw new Error("Debe ingresar el dato 'tipo'.");
     } else if (!capacidad) {
       throw new Error("Debe ingresar el dato 'capacidad'.");
     } else if (!precio) {
       throw new Error("Debe ingresar el dato 'precio.'");
-    }
-    const result = await alojamientoModel.put(id, tipo, capacidad, precio);
+    } */
+
+    const camposPermitidos = ["tipo", "capacidad", "precio"];
+    const campos = Object.keys(data).filter(
+      (campo) => camposPermitidos.includes(campo) && data[campo] !== "",
+    );
+    const set = campos.map((valor) => `${valor} = ?`).join(", ");
+    const valores = campos.map((campo) => data[campo]); //obtengo el valor de cada propiedad del objeto data.
+    const query = `UPDATE alojamiento set ${set} WHERE id = ?`;
+    const parametros = [...valores];
+    const result = await alojamientoModel.put(query, parametros, id);
+
     if (result === null) {
       throw new Error("Ese id no se encuentra registrado.");
     }

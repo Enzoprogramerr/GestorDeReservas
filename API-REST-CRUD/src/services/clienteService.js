@@ -68,23 +68,6 @@ class ClienteService {
     const parametros = [...valores, dniClienteNumber];
     const result = await clienteModel.put(sql, parametros);
     return result;
-
-    /* const { nuevoDni, nombre, apellido, telefono } = data;
-    if (!nombre || !apellido) {
-      throw new Error("Debe ingresar nombre y apellido.");
-    }
-    const dniClienteNumber = Number(dniCliente);
-    const result = await clienteModel.put(
-      dniClienteNumber,
-      nuevoDni,
-      nombre,
-      apellido,
-      telefono,
-    );
-    if (result === null) {
-      throw new Error("Ese dni no se encuentra registrado.");
-    }
-    return result; */
   }
 
   static async remove(dni) {

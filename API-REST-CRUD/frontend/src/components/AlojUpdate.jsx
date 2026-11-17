@@ -20,6 +20,7 @@ export function AlojUpdate({ onClose, aloj }) {
     if (!idAEditar) {
       const data = new FormData(e.target);
       const id = data.get("id");
+      console.log(id);
       idAEditar = id;
     }
     const formData = new FormData(e.target);
@@ -30,6 +31,9 @@ export function AlojUpdate({ onClose, aloj }) {
     };
 
     try {
+      if (idAEditar === "") {
+        throw new Error("Debe ingresar id del alojamiento que quieres editar.");
+      }
       const response = await update(idAEditar, nuevoAlojamiento);
       setAlojamiento(response);
       setError("");
@@ -50,7 +54,7 @@ export function AlojUpdate({ onClose, aloj }) {
             />
           ) : error ? (
             <ErrorCard
-              title={"Error al eliminar"}
+              title={"Error al editar"}
               message={error}
               close={onClose}
             />

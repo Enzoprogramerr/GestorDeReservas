@@ -20,7 +20,7 @@ export function AlojCreate({ onClose }) {
     const nuevoAlojamiento = {
       tipo: formData.get("tipo"),
       capacidad: formData.get("capacidad"),
-      precio: Number(formData.get("precio")),
+      precio: formData.get("precio"),
     };
     try {
       const response = await create(nuevoAlojamiento);
@@ -80,7 +80,7 @@ export function AlojCreate({ onClose }) {
               </div>
               <div className="form-field">
                 <label>Precio</label>
-                <input type="number" name="precio" placeholder="Precio" />
+                <input type="text" name="precio" placeholder="Precio" />
               </div>
               <div className="edit-client-actions">
                 <button type="button" className="btn-cancel" onClick={onClose}>

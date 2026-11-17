@@ -32,10 +32,8 @@ class AlojamientoModel {
     const [result] = await db.query(query, [id]);
     return result[0];
   }
-  static async put(id, tipo, capacidad, precio) {
-    const query = `update alojamiento set tipo = ?, capacidad= ?, precio  =  ? 
-      WHERE id = ?`;
-    const [result] = await db.query(query, [tipo, capacidad, precio, id]);
+  static async put(query, parametros, id) {
+    const [result] = await db.query(query, [parametros, id]);
     if (result.affectedRows === 0) {
       return null;
     }
