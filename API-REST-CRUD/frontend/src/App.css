@@ -497,6 +497,7 @@ button {
   align-items: baseline;
   gap: 2rem;
   justify-content: space-between;
+  padding: 0 0.5rem;
 }
 
 .div-count p {

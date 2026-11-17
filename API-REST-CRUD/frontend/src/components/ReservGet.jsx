@@ -127,7 +127,7 @@ export function MostrarReserva({ onClose }) {
                 {tipoBusqueda === "cliente" && (
                   <form onSubmit={getByClient}>
                     <input
-                      type="number"
+                      type="text"
                       name="idCliente"
                       placeholder="Dni del cliente"
                     />
@@ -144,7 +144,7 @@ export function MostrarReserva({ onClose }) {
                 {tipoBusqueda === "alojamiento" && (
                   <form onSubmit={getByAloj}>
                     <input
-                      type="number"
+                      type="text"
                       name="idAloj"
                       placeholder="Id del alojamiento"
                     />

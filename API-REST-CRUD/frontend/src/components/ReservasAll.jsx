@@ -114,7 +114,10 @@ export function AllReservation() {
         <ErrorCard
           title={"Error en la consulta"}
           message={error}
-          close={() => setError("")}
+          close={() => {
+            setError("");
+            navigate("/reserva");
+          }}
         />
       ) : null}
       <Navbar />

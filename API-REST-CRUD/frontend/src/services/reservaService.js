@@ -1,9 +1,15 @@
 const url = "http://localhost:3000/reserva";
 
-export async function get(params = "") {
-  const response = await fetch(params ? `${url}?${params}` : url);
+export async function get(params = new URLSearchParams()) {
+  const response = await fetch(
+    params.toString() ? `${url}?${params}` : `${url}/all`,
+  );
   const data = await response.json();
   if (!response.ok) {
+    if (Array.isArray(data.error)) {
+      const message = data.error.map((e) => e.msg).join("\n");
+      throw new Error(message);
+    }
     throw new Error(data.error);
   }
   return data;
